@@ -5,6 +5,7 @@ const config = require('./api/config/configuration')
 const app_routes = require('./api/routes/app.route')
 const app_component = require('./api/routes/componet.route')
 const app_user = require('./api/routes/user.route')
+const app_typefiles = require('./api/routes/typefile.route')
 
 // Variables estaticas
 const PORT = config.PORT
@@ -22,10 +23,11 @@ app.use(function(req, res, next) {
 
 //Middlewares
 app.use(bodyParser.urlencoded({ extended: false }))
-app.use( bodyParser.json() )
+app.use(bodyParser.json())
 
 //	Rutas
 app.use('/user', app_user)
+app.use('/typefile',app_typefiles)
 app.use('/component', app_component)
 app.use('/', app_routes)
 
