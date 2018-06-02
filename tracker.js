@@ -1,11 +1,14 @@
 //	Arrancador de la Aplicacion
 const express = require('express')
 const bodyParser = require('body-parser')
+const moment = require('moment')
+
 const config = require('./api/config/configuration')
 const app_routes = require('./api/routes/app.route')
 const app_component = require('./api/routes/componet.route')
 const app_user = require('./api/routes/user.route')
 const app_typefiles = require('./api/routes/typefile.route')
+const app_request = require('./api/routes/request.route')
 
 // Variables estaticas
 const PORT = config.PORT
@@ -26,6 +29,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 //	Rutas
+app.use('/request',app_request)
 app.use('/user', app_user)
 app.use('/typefile',app_typefiles)
 app.use('/component', app_component)
@@ -34,8 +38,9 @@ app.use('/', app_routes)
 //Iniciando Servidor
 try{
     app.listen(PORT, () => {
-        console.log('Servidor online!!')
-        console.log('PORT :: \x1b[43m%s\x1b[0m' , PORT )
+        console.log('Hora inicio\t::\t' + moment().format())
+        console.log('Servidor \t::\tONLINE')
+        console.log('Puerto\t\t::\t'+PORT )
     })
 }catch( ex ){
     console.log( "Err >> " + ex )
