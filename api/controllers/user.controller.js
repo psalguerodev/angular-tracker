@@ -119,9 +119,40 @@ const getListAllUser = ( request , response , nextFunction ) => {
     })
 }
 
+const getUserByCode = ( request , response , nextFunction ) => {
+    const id = request.params.id || 0
+
+    if( id == 0 || isNaN(id) ){
+        return response.status(400).json({
+            ok:false,
+            message:'El ID es totalmente obligatorio'
+        })
+    }
+    
+    User.getUserByCode(id).then(res=>{
+        if(res){
+            return response.status(200).json({
+                ok:true,
+                message:'Se ha encontrado correctamente',
+                body:res
+            })
+        }
+    }).catch(err=>{
+        if(err){
+            return response.status(500).json({
+                ok:false,
+                message:'Ha ocurrido un error al procesar',
+                error: err
+            })  
+        }
+    })
+
+}
+
 module.exports = {
     addUser,
     updateUser,
     deleteUser,
-    getListAllUser
+    getListAllUser,
+    getUserByCode
 }

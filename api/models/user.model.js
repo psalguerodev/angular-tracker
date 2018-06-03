@@ -6,7 +6,8 @@ const sql_query = {
     UPDATE : `update users set name=? , lastname=? , email=? , nickname=? ,  active=? ,
               updated=? where code=?`,
     DELETE : `delete from users where code=?`,
-    SELECTALL : `select * from users`
+    SELECTALL : `select * from users`,
+    SELECTONE : 'select * from users where code=?'
 }
 
 const addUser = (name,lastname,email,nickname,password) => {
@@ -74,10 +75,35 @@ const getListAllUser = () => {
     })
 }
 
+const getUserByCode = (id) => {
+    return new Promise((resolve,reject)=>{
+        let db = database.connection()
+        db.get(sql_query.SELECTONE,[id],function(err,row){
+            if(err) {
+                console.log(err.message)
+                reject(err)
+            }
+            
+            db.close()
+
+            if( !row || row == undefined ){
+                return reject({
+                    ok:false,
+                    message:'No se ha encontrado usuario'
+                })
+            }
+
+            row.password = undefined
+           
+            resolve(row)
+        })
+    })
+}
 
 module.exports = {
     addUser,
     updateUser,
     deleteUser,
-    getListAllUser
+    getListAllUser,
+    getUserByCode
 }

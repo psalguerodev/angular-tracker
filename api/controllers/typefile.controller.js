@@ -123,9 +123,42 @@ const listalltypefile = ( request , response , nextFunction ) => {
 
 }
 
+
+const getTypefileByCode = ( request , response , nextFunction ) => {
+    const id = request.params.id || 0
+    if( !id  || isNaN(id) ) {
+        return response.status(400).json({
+            ok:false,
+            message:'El ID es totalmente requerido'
+        })
+    }
+
+    Typefile.getTypefileByCode(id).then(res=>{
+        if(res) {
+            return response.status(200).json({
+                ok:true,
+                message:'Se ha encontrado tipo de componente',
+                body:res
+            })
+        }
+    })
+    .catch(err=>{
+        if(err){
+            return response.status(500).json({
+                ok:false,
+                message: 'Ha ocurrido un error al procesar',
+                error: err
+            }) 
+        }
+    })
+
+
+}
+
 module.exports = {
     addtypefile,
     updatypefile,
     deletetypefile,
-    listalltypefile
+    listalltypefile,
+    getTypefileByCode
 }

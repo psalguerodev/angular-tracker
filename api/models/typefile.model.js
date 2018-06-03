@@ -5,7 +5,8 @@ const sql_query = {
               values(?,?,?,?)`,
     UPDATE : `update typefile set shortname=? , longname=? , description=?, updated=? where code=?`,
     DELETE : `delete from typefile where code =?`,
-    SELECTALL : `select * from typefile`
+    SELECTALL : `select * from typefile`,
+    SELECTONE : `select * from typefile where code=?`
 }
 
 const addtypefile = (shortname,longname,description) => {
@@ -77,9 +78,36 @@ const listalltypefile = () => {
     })
 }
 
+const getTypefileByCode = (id) => {
+    return new Promise((resolve,reject) => {
+        let db = database.connection()
+        if(db!=null){
+            db.get(sql_query.SELECTONE,[id],function(err,row){
+                if(err){
+                    console.log(err)
+                    reject(err)
+                }
+
+                if( !row  || row == undefined){
+                    console.log(row)
+                    reject({
+                        ok:false,
+                        message: 'El tipo de elemento no se ha encontrado'   
+                    })
+                }
+
+                db.close()
+                resolve(row)
+            })
+        }
+    })
+}
+
+
 module.exports = {
     addtypefile,
     updatetypefile,
     deletetypefile,
-    listalltypefile
+    listalltypefile,
+    getTypefileByCode
 }
