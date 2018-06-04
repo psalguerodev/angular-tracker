@@ -64,8 +64,10 @@ const updateFileRequest = (id,ambient,path) => {
                 }
 
                 if(this.changes > 0 ){
+                    db.close()
                     resolve(true)
                 }else{
+                    db.close()
                     reject({
                         ok:false,
                         message:'No se ha realizado la actualización.'
