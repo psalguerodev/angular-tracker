@@ -1,4 +1,5 @@
 const User = require('../models/user.model')
+const bcrypt = require('bcrypt')
 
 const addUser = ( request , response , nextFunction ) => {
     const body = request.body || null
@@ -10,7 +11,10 @@ const addUser = ( request , response , nextFunction ) => {
         })
     }
 
-    User.addUser(body.name,body.lastname,body.email,body.nickname,body.password).then(res => {
+    //	Encriptar clave de usuario
+    let password = bcrypt.hashSync(body.password, 10)
+
+    User.addUser(body.name,body.lastname,body.email,body.nickname,password).then(res => {
         if( res ) {
             return response.status(200).json({
                 ok : true ,
@@ -60,6 +64,41 @@ const updateUser = ( request , response , nextFunction ) => {
             return response.status(500).json({
                 ok:false,
                 message:'Ha ocurrido un error al actualizar usuario.'
+            })
+        }
+    })
+
+}
+
+const changePassword = ( request , response , nextFunction ) => {
+    const body = request.body
+    const id = request.params.id || 0
+
+    if( !id || isNaN(id) || !body.password ){
+        return response.status(400).json({
+            ok:false,
+            message:'El ID del usuario es obligatorio'
+        })
+    }
+
+    //	Encriptando clave
+    let password = bcrypt.hashSync(body.password,10)
+
+    User.changePassword(id,password).then(res=>{
+        if(res){
+            return response.status(200).json({
+                ok : true ,
+                message: 'Se actualizado la clave correctamente del usuario',
+                id : id 
+            })
+        }
+    })
+    .catch(err=>{
+        if(err) {
+            return response.status(500).json({
+                ok:false,
+                message:'Ha ocurrido un error al procesar',
+                error:err
             })
         }
     })
@@ -154,5 +193,6 @@ module.exports = {
     updateUser,
     deleteUser,
     getListAllUser,
-    getUserByCode
+    getUserByCode,
+    changePassword
 }
