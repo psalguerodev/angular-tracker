@@ -4,6 +4,8 @@ const bodyParser = require('body-parser')
 const moment = require('moment')
 const morgan = require('morgan');
 const logger = require('winston');
+const serverIndex = require('serve-index')
+const path = require('path')
 
 const config = require('./api/config/configuration')
 const app_routes = require('./api/routes/app.route')
@@ -31,6 +33,8 @@ app.use(function(req, res, next) {
 //Middlewares
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+app.use(express.static(path.join(__dirname, "dist/tracker")));
+app.use('/uploads',express.static('api/uploads'),serverIndex( __dirname +'/api/uploads',{'icons': true}) )
 
 //	Rutas
 app.use('/request',app_request)
