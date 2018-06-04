@@ -27,6 +27,62 @@ const getListAllComponents = (request,response,next) => {
 
 }
 
+const getComponentByCode = ( request , response , nextFunction ) => {
+    const id = request.params.id || 0
+
+    if(!id || isNaN(id)){
+        return response.status(400).json({
+            ok:false,
+            message:'El ID es obligatorio para realizar la consulta'
+        })
+    }
+
+    //	Ejecutar las promesa para obtener detalle del componente
+    Component.getComponentByCode(id).then(component =>{
+
+        if( component ){
+            let component_result = component
+            let component_detail = undefined
+            Component.getDetailByCode(id).then(details => {
+
+                if( details || !details ){
+                    component_detail = details
+                    
+                    response.status(200).json({
+                        ok : false,
+                        message:'Se ha encontrado componente',
+                        component: component_result,
+                        details : component_detail
+                    })
+                }
+
+            })
+            .catch(err=>{
+                response.status(500).json({
+                    ok : false ,
+                    message : 'Ha ocurrido un error.' ,
+                    error : err
+                })
+            })
+        }else {
+            response.status(500).json({
+                ok : false ,
+                message : 'Ha ocurrido un error.' ,
+                error : err
+            })
+        }
+
+    })
+    .catch(err=>{
+        response.status(500).json({
+            ok : false ,
+            message : 'Ha ocurrido un error.' ,
+            error : err
+        })
+    })
+
+}
+
 const addComponent = (request,response,next) => {
     const body = request.body
     
@@ -128,5 +184,6 @@ module.exports = {
     addComponent,
     updateComponent,
     deleteComponent,
-    getListAllComponents
+    getListAllComponents,
+    getComponentByCode
 }

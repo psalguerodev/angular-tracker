@@ -1,5 +1,13 @@
 const database = require('../config/connection-sqlite')
 
+let sql_query = {
+    DETAIL: `select cd.title, cd.details,cd.created,cd.updated,u.name,u.lastname,u.nickname
+    from components c 
+    inner join component_details cd on cd.component = c.code
+    left join users u on u.code = cd.user
+    where c.code =?`
+}
+
 const getListAllComponents = () => {
     return new Promise((resolve,reject)=> {
         let db = database.connection()
@@ -77,10 +85,53 @@ const deleteComponent = (id) => {
     })
 }
 
+const getComponentByCode = (id) => {
+    return new Promise((resolve,reject) => {
+        let db = database.connection()
+        if(db!=null){
+          db.get('select * from components where code=?',[id],function(err,row){
+              if(err){
+                console.log(err.message)
+                reject(err)
+              }
+
+              if(!row || row == undefined){
+                  reject({
+                      ok:false,
+                      message:'No se ha encontrado Component'
+                  })
+              }
+
+              db.close()
+              resolve(row)
+
+          })  
+        }
+    })
+}
+
+const getDetailByCode = (id) => {
+    return new Promise((resolve,reject) => {
+        let db = database.connection()
+        if(db!=null){
+            db.all(sql_query.DETAIL,[id],function(err,row){
+                if(err){
+                    console.log(err.message)
+                    reject(err)
+                }
+
+                db.close()
+                resolve(row)
+            })
+        }
+    })
+}
 
 module.exports = {
     addComponent,
     updateComponent,
     deleteComponent,
-    getListAllComponents
+    getListAllComponents,
+    getDetailByCode,
+    getComponentByCode
 }
