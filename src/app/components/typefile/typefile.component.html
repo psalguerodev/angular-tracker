@@ -34,16 +34,17 @@
   </div>
   <div class="col-md-6">
       
-    <div class="card-comp" *ngFor="let t of typefiles;let i = index;" (click)="selectType(t)">
+    <div class="card-comp" *ngFor="let t of typefiles;let i = index;">
       <div class="row align-middle">
         <div class="col-md-1 col-sm-1" style="margin:10px 4px">
-          <h6 class="text-center text-secondary icon-type">
+          <h6 class="text-center text-secondary icon-type" (click)="selectType(t)">
            {{t.shortname}}
           </h6>
         </div>
-        <div class="col-md-8 col-sm-8" style="margin-left: 15px;">
-          <small>{{t.longname}}</small><br>
-          <small><span class="text-secondary">{{t.description}}</span></small>
+        <div class="col-md-10 col-sm-10" style="margin-left: 15px;">
+          <small class="float-right btn btn-sm btn-link" (click)="deleteTypefile(t)">Eliminar</small>
+          <small (click)="selectType(t)" >{{t.longname}}</small><br>
+          <small (click)="selectType(t)"><span class="text-secondary">{{t.description}}</span></small>
         </div>
       </div>
     </div>

@@ -29,7 +29,7 @@ export class TypefileService {
   }
 
   public deleteTypefile(typefile){
-    return this.http.delete(this.url,typefile['id'])
+    return this.http.delete(this.url+'/'+typefile['code'])
   }
 
   public listAllTypefile() {

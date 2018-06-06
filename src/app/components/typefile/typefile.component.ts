@@ -56,4 +56,13 @@ export class TypefileComponent implements OnInit {
     this.typefile = type
   }
 
+  deleteTypefile(type){
+    this._typefileService.deleteTypefile(type).subscribe(data=>{
+      console.log( 'Eliminado' + type.shortname )
+      this.getListTypefile()
+    },err => {
+      console.log('Error.' , err )
+    })
+  }
+
 }
