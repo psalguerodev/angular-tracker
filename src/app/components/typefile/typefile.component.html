@@ -1,0 +1,52 @@
+<div class="row top-50 animated fadeInUp">
+  <div class="col-md-12">
+    <h2 class="float-left text-secondary">Tipos de Componentes</h2>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-body">
+        
+        <form #form="ngForm" name="theForm" (ngSubmit)="processForm(form.value)">
+          <div class="form-group">
+            <label for="">Nombre corto</label>
+            <input type="text" name="shortname" [(ngModel)]="typefile.shortname" id="" placeholder="XML" class="form-control form-control-sm" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label for="">Nombre largo</label>
+            <input type="text" name="longname" [(ngModel)]="typefile.longname" id="" placeholder="Documento XML" class="form-control form-control-sm" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label for="">Descripción</label>
+            <input type="text" name="description" [(ngModel)]="typefile.description" id="" placeholder="Descripcion del tipo" class="form-control form-control-sm" autocomplete="off">
+          </div>
+          <div class="float-right">
+              <button type="submit" class="btn btn-primary btn-sm" style="margin-right: 5px;">Guardar</button>
+              <a routerLink='/component' class="btn btn-secondary btn-sm text-white">Cancelar</a>
+              <button type="button" class="btn btn-link btn-sm " (click)="typefile = {}">Limpiar</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+      
+    <div class="card-comp" *ngFor="let t of typefiles;let i = index;" (click)="selectType(t)">
+      <div class="row align-middle">
+        <div class="col-md-1 col-sm-1" style="margin:10px 4px">
+          <h6 class="text-center text-secondary icon-type">
+           {{t.shortname}}
+          </h6>
+        </div>
+        <div class="col-md-8 col-sm-8" style="margin-left: 15px;">
+          <small>{{t.longname}}</small><br>
+          <small><span class="text-secondary">{{t.description}}</span></small>
+        </div>
+      </div>
+    </div>
+        
+  </div>
+</div>

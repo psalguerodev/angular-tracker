@@ -1,5 +1,43 @@
-<div class="row top-50">
+<div class="row top-50 animated fadeInUp">
   <div class="col-md-12">
-    <p>comps</p>
+    <h2 class="float-left text-secondary">Componentes</h2>
+    <div class="float-right">
+      <a class="btn btn-primary text-white" routerLink="/component/add"> + Nuevo Componente</a>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <form action="">
+      <div class="form-group">
+        <input type="text" name="" placeholder="Nombre del componente" id="" class="form-control form-control-sm">
+      </div>
+    </form>
+  </div>
+  <div class="col-md-6">
+    <button type="button" class="btn btn-outline-primary btn-sm" style="margin-right: 10px">Javascript</button>
+    <button type="button" class="btn btn-outline-primary btn-sm" style="margin-right: 10px">XML</button>
+    <button type="button" class="btn btn-outline-primary btn-sm" style="margin-right: 10px">ASP</button>
+    <button type="button" class="btn btn-outline-primary btn-sm" style="margin-right: 10px">FAA</button>
+  </div>
+</div>
+
+<div class="row animated fadeIn top-50">
+  <div class="col-md-4" *ngFor="let c of components;let i = index;" (click)="selectComponent(c)">
+    <div class="card-comp">
+      <div class="row align-middle">
+        <div class="col-md-1 col-sm-1" style="margin:10px 4px">
+          <h6 class="text-center text-secondary icon-type" 
+              [ngStyle]="{ 'font-size' : c.extension.length >= 3 ? '12px' : '13px' }">
+            {{c.extension}}
+          </h6>
+        </div>
+        <div class="col-md-8 col-sm-8" style="margin-left: 15px;">
+          <small>{{c.name}}</small><br>
+          <small><span class="text-secondary">{{c.pathfile}}</span></small>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
