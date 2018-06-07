@@ -1,6 +1,6 @@
-<div class="row top-50 animated fadeInUp">
+<div class="row top-50 animated fadeIn">
     <div class="col-md-12">
-      <h2 class="float-left text-secondary">Nuevo Componente</h2>
+      <h2 class="float-left text-secondary">{{ (idcomponent ==0)?'Nuevo':'Actualizar' }} Componente</h2>
     </div>
   </div>
 
@@ -9,27 +9,57 @@
       <div class="card">
           <div class="card-body">
             
-            <form action="">
+            <form #theForm="ngForm" name="theForm" (ngSubmit)="processForm(theForm.value)">
               <div class="form-group">
                 <label for="">Nombre del Archivo</label>
-                <input type="text" name="" id="" placeholder="ib_List.xml" class="form-control form-control-sm">
+                <input type="text" name="name" [(ngModel)]="component.name" placeholder="ib_List.xml" class="form-control form-control-sm" autocomplete="off" required>
               </div>
               <div class="form-group">
                 <label for="">Ruta del Archivo</label>
-                <input type="text" name="" id="" placeholder="Transactor/Data/ib_List.xml" class="form-control form-control-sm">
+                <input type="text" name="filepath" [(ngModel)]="component.filepath" placeholder="Transactor/Data/ib_List.xml" class="form-control form-control-sm"
+                autocomplete="off" required (ngModelChange)="onchangeInput($event)">
               </div>
               <div class="form-group">
                 <label for="">Extensión</label>
-                <input type="text" name="" id="" placeholder="XML" class="form-control form-control-sm">
+                <select name="extension" [(ngModel)]="component.extension"  class="form-control form-control-sm" autocomplete="off" (ngModelChange)="onchangeSelect($event)" required>
+                  <option value="">Seleccionar</option> 
+                  <option value="{{ t.shortname }}" *ngFor="let t of typefiles">{{ t.shortname }}</option>         
+                </select>
               </div>
 
               <div class="float-right">
-                  <button class="btn btn-primary btn-sm" style="margin-right: 5px;">Guardar</button>
+                  <button [disabled]="theForm.invalid"
+                          class="btn btn-primary btn-sm" 
+                          style="margin-right: 5px;">
+                          Guardar
+                  </button>
                   <a routerLink='/component' class="btn btn-secondary btn-sm text-white">Cancelar</a>
               </div>
             </form>
 
           </div>
         </div>
+  </div>
+  <div class="col-md-5">
+    
+    <div class="card-comp" *ngIf="typefileselect != null && component.extension != ''">
+        <div class="row align-middle">
+          <div class="col-md-1 col-sm-1" style="margin:10px 4px">
+            <h6 class="text-center text-secondary icon-type">
+              {{typefileselect.shortname}}
+            </h6>
+          </div>
+          <div class="col-md-10 col-sm-10" style="margin-left: 15px;">
+            <small>
+              <span class="text-secondary">
+                  {{typefileselect.longname}}
+              </span>
+            </small><br>
+            <small>
+                {{typefileselect.description}}
+            </small>
+          </div>
+        </div>
+      </div>
   </div>
 </div>

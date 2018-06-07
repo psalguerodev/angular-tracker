@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { TableData } from '../../mock/DataTable';
 import { ComponentService } from '../../services/components/component.service';
@@ -11,7 +12,7 @@ export class CompsComponent implements OnInit {
 
   public components: any  = []
 
-  constructor(public _compService : ComponentService) {
+  constructor(public _compService : ComponentService, public router : Router) {
 
   }
 
@@ -30,5 +31,18 @@ export class CompsComponent implements OnInit {
 
   selectComponent(component) {
     console.log(component)
+    this.router.navigate(['component', component['code']])
+  }
+
+  deleteComponent(component){
+    if( confirm(`¿Está seguro de eliminar: ${component['name']}?`)){
+      this._compService.deleteComponent(component).subscribe(data=>{
+
+        this.listComponents()
+
+      },err => {
+        console.error('Error:' + err )
+      })
+    }
   }
 }

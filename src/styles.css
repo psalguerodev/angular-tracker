@@ -8,7 +8,7 @@
 }
 
 .card-comp{
-    padding: 3px;
+    padding: 4px;
     border:1px solid #ccc;
     border-radius: 5px;
     width: 100%;
@@ -19,11 +19,11 @@
 .icon-type{
     padding: 5px;
     font-weight: bold;
-    background: #518ecc;
-    color:white !important;
+    /* background: #; */
+    color:#3078de !important;
     display: table-cell;
     border-radius: 100%;
-    border: 1px solid #ccc;
+    border: 1px solid #3078de;
     width: 100%;
     height: 20px;
     text-align: center;

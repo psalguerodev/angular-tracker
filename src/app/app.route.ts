@@ -10,6 +10,7 @@ const appRoutes : Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'component', component: CompsComponent },
     { path: 'component/add', component: CompformComponent },
+    { path: 'component/:id', component: CompformComponent },
     { path: 'typefile', component: TypefileComponent},
     { path: 'request', component: RequestComponent },
     { path : '**', redirectTo: 'home' }

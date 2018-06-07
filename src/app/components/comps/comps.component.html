@@ -1,4 +1,4 @@
-<div class="row top-50 animated fadeInUp">
+<div class="row top-50 animated fadeInDown">
   <div class="col-md-12">
     <h2 class="float-left text-secondary">Componentes</h2>
     <div class="float-right">
@@ -24,18 +24,20 @@
 </div>
 
 <div class="row animated fadeIn top-50">
-  <div class="col-md-4" *ngFor="let c of components;let i = index;" (click)="selectComponent(c)">
+  <div class="col-md-4" *ngFor="let c of components;let i = index;">
     <div class="card-comp">
       <div class="row align-middle">
         <div class="col-md-1 col-sm-1" style="margin:10px 4px">
           <h6 class="text-center text-secondary icon-type" 
+              (click)="selectComponent(c)"
               [ngStyle]="{ 'font-size' : c.extension.length >= 3 ? '12px' : '13px' }">
             {{c.extension}}
           </h6>
         </div>
-        <div class="col-md-8 col-sm-8" style="margin-left: 15px;">
-          <small>{{c.name}}</small><br>
-          <small><span class="text-secondary">{{c.pathfile}}</span></small>
+        <div class="col-md-10 col-sm-10" style="margin-left: 15px;">
+          <small class="float-right text-secondary" (click)="deleteComponent(c)">X</small>
+          <small (click)="selectComponent(c)">{{c.name}}</small><br>
+          <small (click)="selectComponent(c)"><span class="text-secondary">{{c.pathfile}}</span></small>
         </div>
       </div>
     </div>

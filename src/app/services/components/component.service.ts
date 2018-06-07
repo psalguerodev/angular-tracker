@@ -27,18 +27,24 @@ export class ComponentService {
     return this.http.get(url)
   }
 
+  public getComponentById(code) {
+    let url = `${CONF.ENDPOINT}component/${code}`
+    return this.http.get(url) 
+  }
+
   public addComponent(component) : Observable<{}> {
     let url = `${CONF.ENDPOINT}component`
     return this.http.post(url,component, {})
   }
 
   public deleteComponent(component) {
-    let url = `${CONF.ENDPOINT}component/${component.id}`
+    let url = `${CONF.ENDPOINT}component/${component.code}`
     return this.http.delete(url,{})
   }
 
   public updateComponent(component) {
-    let url = `${CONF.ENDPOINT}component/${component.id}`
+    component['pathfile'] = component['filepath']
+    let url = `${CONF.ENDPOINT}component/${component.code}`
     return this.http.put(url,component,{})
   }
 
