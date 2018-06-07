@@ -1,3 +1,51 @@
-<p>
-  requestform works!
-</p>
+<div class="row top-50 animated fadeInUp">
+  <div class="col-md-12">
+    <h5 *ngIf="request.status != ''" class="btn btn-primary float-right">{{ request.status }}</h5>
+    <h2 class="text-secondary">{{ (idrequest == null) ? 'Nuevo' : 'Actualizar' }} Requerimiento</h2>
+  </div>
+</div>
+
+<div class="row animated fadeIn">
+  <div class="col-md-5">
+    <div class="card">
+      <div class="card-body">
+        <form #theForm="ngForm" name="theForm" (ngSubmit)="processForm(theForm.value)"> 
+          <div class="form-group">
+            <label for="">Codigo de Identitdad</label>
+            <input type="text" placeholder="SRT-201843-24" [(ngModel)]="request.identity" class="form-control form-control-sm" required autocomplete="false" name="identity">
+          </div>
+          <div class="form-group">
+            <label for="">Titulo</label>
+            <input type="text" placeholder="Nueva Transacción 907" [(ngModel)]="request.title" class="form-control form-control-sm" required autocomplete="false" name="title">
+          </div>
+          <div class="form-group">
+            <label for="">Teach Leader</label>
+            <input type="text" name="teach" [(ngModel)]="request.teach" 
+                   class="form-control form-control-sm" placeholder="Lider técnico del Requerimiento">
+          </div>
+          <div class="form-group">
+            <label for="">Detalles</label>
+            <textarea name="details" [(ngModel)]="request.details" placeholder="Descripcion del Requerimiento" class="form-control form-control-sm"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="">Estado</label>
+            <select name="status" [(ngModel)]="request.status" class="form-control form-control-sm" required>
+              <option value="">Seleccionar</option>
+              <option value="Análisis">Análisis</option>
+              <option value="Desarrollo">Desarrollo</option>
+              <option value="Certificación">Certificación</option>
+              <option value="Producción">Producción</option>
+            </select>
+          </div>
+
+          <div class="float-right">
+            <button type="submit" [disabled]="theForm.invalid" class="btn btn-primary btn-sm"   style="margin-right: 5px;">
+              Guardar
+            </button>
+            <a routerLink='/request' class="btn btn-secondary btn-sm text-white">Cancelar</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,3 +1,4 @@
+import { RequestformComponent } from './components/requestform/requestform.component';
 import { TypefileComponent } from './components/typefile/typefile.component';
 import { HomeComponent } from './components/home/home.component';
 import { RequestComponent } from './components/request/request.component';
@@ -13,6 +14,8 @@ const appRoutes : Routes = [
     { path: 'component/:id', component: CompformComponent },
     { path: 'typefile', component: TypefileComponent},
     { path: 'request', component: RequestComponent },
+    { path: 'request/add', component: RequestformComponent },
+    { path: 'request/:id', component: RequestformComponent }
     { path : '**', redirectTo: 'home' }
 ]
 

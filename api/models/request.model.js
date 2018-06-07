@@ -1,20 +1,22 @@
 const database = require('../config/connection-sqlite')
 
 const sql_query = {
-    INSERT : `insert into request(identity,title,details,user,created)
-                values(?,?,?,?,?)`,
-    UPDATE : `update request set identity=? , title=? , details=? , user=? , updated=? where code=?`,
+    INSERT : `insert into request(identity,title,details,user,created,teach,status)
+                values(?,?,?,?,?,?,?)`,
+    UPDATE : `update request set identity=? , title=? , details=? , user=? , updated=? , teach=? , status=?
+              where code=?`,
     UPDATEFILE : ``,
     DELETE: `delete from request where code=?`,
-    SELECTALL: `select * from request`
+    SELECTALL: `select * from request`,
+    SELECTONE : `select * from request where code=?`
 }
 
-const addRequest = (identity,title,details,user) => {
+const addRequest = (identity,title,details,user,teach,status) => {
     return new Promise((resolve,reject) => {
         let db = database.connection()
         if(db!=null){
             let timestamp = new Date().getTime()
-            db.run(sql_query.INSERT,[identity.toUpperCase(),title,details,user,timestamp], function(error){
+            db.run(sql_query.INSERT,[identity.toUpperCase(),title,details,user,timestamp,teach,status], function(error){
                 if( error ){
                     console.log(error.message)
                     reject(error)
@@ -29,12 +31,13 @@ const addRequest = (identity,title,details,user) => {
     })
 }
 
-const updateRequest = (id,identity,title,details,user) => {
+const updateRequest = (id,identity,title,details,user,teach,status) => {
     return new Promise((resolve,reject) => {
         let db = database.connection()
         if(db!=null){
             let timestamp = new Date().getTime()
-            db.run(sql_query.UPDATE,[identity,title,details,user,timestamp,id],function(error){
+            console.log(teach,status)
+            db.run(sql_query.UPDATE,[identity,title,details,user,timestamp,teach,status,id],function(error){
                 if(error){
                     console.log(error.message)
                     reject(error)
@@ -112,10 +115,34 @@ const listAllRequest = () => {
     })
 }
 
+
+const getRequestByCode = (code) => {
+    return new Promise((resolve,reject) => {
+        let db = database.connection()
+        if(null!=db){
+            db.get(sql_query.SELECTONE, [code],function(err,row){
+                if(err){
+                    console.log(err.message)
+                    reject(err)
+                }
+
+                if(!row || row == undefined) {
+                    db.close()
+                    reject({ok:false,message:'No se encontrado requerimiento.'})
+                    return
+                }
+                db.close()
+                resolve(row)
+            })
+        }
+    })
+}
+
 module.exports = {
     addRequest,
     updateRequest,
     deleteRequest,
     listAllRequest,
-    updateFileRequest
+    updateFileRequest,
+    getRequestByCode
 }

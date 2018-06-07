@@ -1,5 +1,25 @@
 <div class="row top-50 animated fadeInUp">
   <div class="col-md-12">
+    <a routerLink="/request/add" class="btn btn-primary float-right">+ Nuevo Requerimiento</a>
     <h2 class="text-secondary">Requerimientos</h2>
+  </div>
+</div>
+
+<div class="row top-50">
+  <div class="col-md-4 col-xs-12" *ngFor="let r of requests;let i = index;" style="cursor: pointer;margin-bottom: 15px;">
+    <div class="card request-card animated bounceInLeft">
+      <div class="card-body">
+          <span class="text-center float-right badge badge-secondary">x</span>
+        <h5 (click)="selectRequest(r)" class="text-secondary">{{r.identity}} </h5>
+        <span (click)="selectRequest(r)" style="font-size: 0.9rem">{{r.title}}</span> <br>
+        <small>Componentes: <span class="badge badge-primary">23</span></small> <small class="float-right">Creación: <span class="badge badge-info"> 23/12/2017</span></small> <br>
+        <small>Estado: <span class="badge badge-success">{{r.status}}</span></small> 
+        <h5 class="float-right text-secondary">{{r.teach}}</h5>
+        <br><br>
+        <small class="float-right">
+            <button class="btn-outline-primary btn-xs">Ver detalles</button>
+        </small>
+      </div>
+    </div>
   </div>
 </div>

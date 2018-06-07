@@ -4,14 +4,14 @@ const fs = require('fs')
 const addRequest = ( request , response , nextFunction ) => {
     const body = request.body
     
-    if(!body.identity || !body.title || !body.user){
+    if(!body.identity || !body.title || !body.user || !body.teach || !body.status ){
         return response.status(400).json({
             ok:false,
             message:'Todos los campos son obligatorios'
         })
     }
 
-    Request.addRequest(body.identity,body.title,body.details,body.user)
+    Request.addRequest(body.identity,body.title,body.details,body.user,body.teach,body.status)
     .then(res=>{
         if(res){
             return response.status(200).json({
@@ -38,14 +38,14 @@ const updateRequest = ( request , response , nextFunction ) => {
     const body = request.body
     const id = request.params.id || 0
     
-    if(!body.identity || !body.title || !body.user || id==0){
+    if(!body.identity || !body.title || !body.user || id==0 || !body.teach || !body.status){
         return response.status(400).json({
             ok:false,
             message:'Todos los campos son obligatorios'
         })
     }
 
-    Request.updateRequest(id,body.identity,body.title,body.details,body.user)
+    Request.updateRequest(id,body.identity,body.title,body.details,body.user,body.teach,body.status)
     .then(res=>{
         if(res){
             return response.status(200).json({
@@ -116,6 +116,32 @@ const listAllRequest = ( request , response , nextFunction ) => {
                 error:err
             })
         }
+    })
+}
+
+const getRequestByCode = ( request , response , nextFunction ) => {
+    const id = request.params['id']
+
+    if(!id || isNaN(id)){
+        return response.status(400).json({
+            ok:false,
+            message:'El ID es obligatorio como parametro'
+        })
+    }
+
+    Request.getRequestByCode(id).then(res=>{
+        if(res){
+            return response.status(200).json({
+                ok:true,
+                message:'Se ha obtenido informacion del requerimiento',
+                body:res
+            })
+        }
+    },err => {
+        return response.status(500).json({
+            ok:false,
+            message:'Ha ocurrido un error al buscar requerimiento'
+        })
     })
 }
 
@@ -225,5 +251,6 @@ module.exports = {
     updateRequest,
     deleteRequest,
     listAllRequest,
-    uploadFileRequest
+    uploadFileRequest,
+    getRequestByCode
 }

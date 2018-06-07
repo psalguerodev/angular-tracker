@@ -30,7 +30,6 @@ export class CompformComponent implements OnInit {
   ngOnInit() {
     this.getListTypefile()
     this.getComponentByCode()
-
   }
 
   getComponentByCode(){

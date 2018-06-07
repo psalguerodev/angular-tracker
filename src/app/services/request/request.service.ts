@@ -13,19 +13,24 @@ export class RequestService {
   constructor(private http: HttpClient , private _router : Router) { }
 
   getListAllRequest() {
-    
+    return this.http.get(this.url)
+  }
+
+  getRequestByCode(code:number){
+    return this.http.get(`${this.url}/${code}`)
   }
 
   addRequest(request) {
-
+    return this.http.post(this.url,request)
   }
 
   deleteRequest(request) {
-
+    return this.http.post(`${this.url}/${request['code']}`)
   }
 
   updateRequest(request) {
-
+    console.log( request['code'] )
+    return this.http.put(`${this.url}/${request['code']}`, request)
   }
 
 }
