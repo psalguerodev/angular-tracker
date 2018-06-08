@@ -25,7 +25,7 @@ export class RequestService {
   }
 
   deleteRequest(request) {
-    return this.http.post(`${this.url}/${request['code']}`)
+    return this.http.delete(`${this.url}/${request['code']}`)
   }
 
   updateRequest(request) {

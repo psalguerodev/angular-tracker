@@ -15,7 +15,7 @@ const appRoutes : Routes = [
     { path: 'typefile', component: TypefileComponent},
     { path: 'request', component: RequestComponent },
     { path: 'request/add', component: RequestformComponent },
-    { path: 'request/:id', component: RequestformComponent }
+    { path: 'request/:id', component: RequestformComponent },
     { path : '**', redirectTo: 'home' }
 ]
 
