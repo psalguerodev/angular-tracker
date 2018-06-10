@@ -1,3 +1,4 @@
+import { LoginService } from './../../services/login/login.service';
 import { NgForm, FormBuilder } from '@angular/forms';
 import { ComponentService } from './../../services/components/component.service';
 import { RequestService } from './../../services/request/request.service';
@@ -28,7 +29,8 @@ export class RequestdetailComponent implements OnInit {
     private router:Router,
     private activeRoute: ActivatedRoute,
     private _requestService:RequestService,
-    private _componentService:ComponentService
+    private _componentService:ComponentService,
+    private _loginService:LoginService
   ) { }
 
   ngOnInit() {
@@ -87,7 +89,7 @@ export class RequestdetailComponent implements OnInit {
 
   processForm(formvalue){
     formvalue['request'] = this.idrequest
-    formvalue['user'] = 'XT7226'
+    formvalue['user'] = this._loginService.getUser()['nickname'] || 'ADMIN'
     formvalue['component'] = this.componentSelect['code']
     
     console.log(formvalue)
@@ -95,21 +97,28 @@ export class RequestdetailComponent implements OnInit {
       //guardar
       this._componentService.addDetailComponent(formvalue).subscribe(res=>{
         if(res){
-          console.log(res)
           this.getRequestDetail()
           this.detail = {componet:''}
           this.showform = false
+          
         }
       },err =>{
         console.log( 'Error. ' ,err )  
       })
     }else{
       //actualizar
+      console.log( 'Actualizar' )
+      formvalue['code'] = this.iddetail
+      this._requestService.updateRequestDetail(formvalue).subscribe(res=>{
+        this.getRequestDetail()
+        this.detail = {component:''}
+        this.showform =false
+        this.onchangeSelect('')
+      },err => console.log( 'Err. ', err ))
     }
   }
 
   deleteDetail(detail){
-    console.log( detail )
     if(confirm(`¿Está seguro de eliminar el componente: ${detail['name']}?`)) {
       this._requestService.deteleRequestDetailByCode(detail).subscribe(res=>{
         if(res){
@@ -119,6 +128,16 @@ export class RequestdetailComponent implements OnInit {
     }
   }
 
-  
+  findComponent(evento){
+    console.log( evento )
+  }
+
+  select(d){
+    this.iddetail = d['code']
+    this.detailselect=d;
+    this.detail = this.detailselect
+    this.detail['component'] = d['name']
+    this.onchangeSelect(d['name'])
+  }
 
 }

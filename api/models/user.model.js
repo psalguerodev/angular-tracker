@@ -47,6 +47,34 @@ const updateUser = (id,name,lastname,email,nickname,password,active) => {
     })
 }
 
+const verifyUserLogin = (nickname) => {
+    return new Promise((resolve,reject) => {
+        let db = database.connection()
+        if(null!=db){
+            let sql = 'select * from users where nickname=? '
+            db.get(sql,[nickname],function(err,row){
+                if(err){
+                    console.log(err.message)
+                    reject(err)
+                }
+                
+                db.close()
+
+                if(!row || row == undefined){
+                    console.log('Nickname o clave incorrecta no encontrado')
+                    reject({
+                        ok:false,
+                        login:false,
+                        message:'El nickname o clave es incorrecta.'
+                    })
+                }
+
+                resolve(row)
+
+            })
+        }
+    })
+}
 
 const changePassword = (id,password) => {
     return new Promise((resolve,reject) => {
@@ -131,5 +159,6 @@ module.exports = {
     deleteUser,
     getListAllUser,
     getUserByCode,
-    changePassword
+    changePassword,
+    verifyUserLogin
 }

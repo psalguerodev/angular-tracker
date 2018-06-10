@@ -188,11 +188,58 @@ const getUserByCode = ( request , response , nextFunction ) => {
 
 }
 
+const verifyUserLogin = ( request , response , nextFunction ) => {
+    const body = request.body
+
+    if(!body.register || !body.password){
+        return response.status(400).json({
+            ok:false,
+            login:false,
+            message:'El usuario y clave son obligatorios'
+        })
+    }
+
+    User.verifyUserLogin(body.register).then(res=>{
+        if(res){
+            console.log('Password: ' + res['password'])
+            let compare = bcrypt.compareSync(body.password, res['password'])
+            console.log(compare)
+            if(compare){
+                res['password'] = undefined
+                res['role'] = (body.register == 'ADMIN') ? 'ADMIN' : 'USER'
+                return response.status(200).json({
+                    ok :true,
+                    message:'Acceso correcto',
+                    body : res
+                })
+            }else{
+                return response.status(400).json({
+                    ok:false,
+                    message:'Acceso incorrecto, registro o clave incorrectos '
+                })
+            }
+        }
+    },err => {
+        if(err){
+            if(!err['login']){
+               return response.status(500).json(err)
+            }
+            return response.status(500).json({
+                ok:false,
+                message:'Ha ocurrido un error al realizar login',
+                error:err
+            })
+        }
+    })
+
+}
+
 module.exports = {
     addUser,
     updateUser,
     deleteUser,
     getListAllUser,
     getUserByCode,
-    changePassword
+    changePassword,
+    verifyUserLogin
 }

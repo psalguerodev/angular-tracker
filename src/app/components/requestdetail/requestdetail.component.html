@@ -4,7 +4,7 @@
       <h2 class="text-secondary">Requerimiento</h2>
       <h5 class="text-secondary float-left"><a [routerLink]="['/request',idrequest]">{{  request?.identity }}</a> / {{ request?.title }}</h5>
       <small class="text-secondary float-right">Creado: {{ request?.created * 1000 | date:'M/d/yy, h:mm a'}} </small><br>
-      <small class="text-secondary float-right">Teach Lead: {{ request?.teach }}</small>
+      <small class="text-secondary float-right">Teach Lead: <strong>{{ request?.teach }}</strong></small>
     </div>
 </div>
 
@@ -28,7 +28,7 @@
               </button>
           </div>
           <br><br>
-          <div class="row animated fadeInUp" *ngIf="showform">
+          <div class="row animated fadeIn" *ngIf="showform">
             <div class="col-md-12">
               <div class="card">
                 <div class="card-body">
@@ -43,7 +43,7 @@
                     </div>
                     <div class="form-group">
                       <label for="">Titulo</label>
-                      <input type="text" name="title" [(ngModel)]="detail.title" class="form-control form-control-sm" required placeholder="Titulo del cambio en el componente">
+                      <input type="text" name="title" [(ngModel)]="detail.title" class="form-control form-control-sm"  autocomplete="off" required placeholder="Titulo del cambio en el componente">
                     </div>
                     <div class="form-group">
                       <label for="">Detalle</label>
@@ -71,14 +71,14 @@
               <div class="row align-middle">
                 <div class="col-md-1 col-sm-1" style="margin:10px 4px">
                   <h6 class="text-center text-secondary icon-type"
-                  (click)="detailselect=d"
+                  (click)="select(d)"
                   [ngStyle]="{ 'font-size' : d.extension.length >= 3 ? '12px' : '13px' }">
                     {{d.extension}}
                   </h6>
                 </div>
                 <div class="col-md-10 col-sm-10" style="margin-left: 15px;">
                   <small class="float-right text-secondary" (click)="deleteDetail(d)">X</small>
-                  <small (click)="detailselect=d">{{d.name}}</small>
+                  <small (click)="select(d)">{{d.name}}</small>
                   <br>
                   <small ><span class="text-secondary">{{d.title}}</span></small>
                 </div>
@@ -92,7 +92,9 @@
     <div class="card animated fadeInRight">
         <div class="card-body">
             <small class="float-right text-secondary" style="cursor: pointer;" (click)="detailselect = null">X</small>
-            <h6 class="text-secondary">{{detailselect.title}}</h6>
+            <h6 class="text-secondary">{{detailselect.title}} 
+              <span style="cursor: pointer;" (click)="showform=true">✎</span>
+            </h6>
             <div class="card-comp">
                 <div class="row align-middle">
                   <div class="col-md-1 col-sm-1" style="margin:10px 4px">

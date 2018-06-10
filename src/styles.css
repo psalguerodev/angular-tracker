@@ -41,3 +41,8 @@
    background:#000aff17;
    border:1px solid #3078de;
 }
+
+.dropdown-item:hover{
+    background: #3078de;
+    color:white;
+}

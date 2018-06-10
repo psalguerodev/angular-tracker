@@ -1,5 +1,10 @@
-<app-navbar class="animated fadeIn"></app-navbar>
+<div id="main-container" *ngIf="_loginService.isLoggued">
+    <app-navbar class="animated fadeIn"></app-navbar>
+    <div class="container">
+      <router-outlet></router-outlet>
+    </div>
+</div>
 
-<div class="container">
-  <router-outlet></router-outlet>
+<div id="login-container" *ngIf="!_loginService.isLoggued">
+  <app-login style="height: 100%; width: 100%"></app-login>
 </div>
