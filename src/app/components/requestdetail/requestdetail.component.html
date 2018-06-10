@@ -67,26 +67,28 @@
                   (ngModelChange)="findComponent($event)" class="form-control form-control-sm" placeholder="Buscar componente">
           </div>
           
-          <div class="card-comp" *ngFor="let d of details">
-              <div class="row align-middle">
-                <div class="col-md-1 col-sm-1" style="margin:10px 4px">
-                  <h6 class="text-center text-secondary icon-type"
-                  (click)="select(d)"
-                  [ngStyle]="{ 'font-size' : d.extension.length >= 3 ? '12px' : '13px' }">
-                    {{d.extension}}
-                  </h6>
-                </div>
-                <div class="col-md-10 col-sm-10" style="margin-left: 15px;">
-                  <small class="float-right text-secondary" (click)="deleteDetail(d)">X</small>
-                  <small (click)="select(d)">{{d.name}}</small>
-                  <br>
-                  <small ><span class="text-secondary">{{d.title}}</span></small>
-                </div>
+          <div class="cards-container" style="max-height: 350px; overflow-y: scroll;overflow-x: hidden">
+              <div class="card-comp" *ngFor="let d of details" style="width: 97%">
+                  <div class="row align-middle">
+                    <div class="col-md-1 col-sm-1" style="margin:10px 4px">
+                      <h6 class="text-center text-secondary icon-type"
+                      (click)="select(d)"
+                      [ngStyle]="{ 'font-size' : d.extension.length >= 3 ? '12px' : '13px' }">
+                        {{d.extension}}
+                      </h6>
+                    </div>
+                    <div class="col-md-10 col-sm-10" style="margin-left: 15px;">
+                      <small class="float-right text-secondary" (click)="deleteDetail(d)">X</small>
+                      <small (click)="select(d)">{{d.name}}</small>
+                      <br>
+                      <small ><span class="text-secondary">{{d.title}}</span></small>
+                    </div>
+                  </div>
               </div>
           </div>
 
       </div>
-    </div>
+    </div><br><br>
   </div>
   <div class="col-md-6" *ngIf="detailselect != null">
     <div class="card animated fadeInRight">

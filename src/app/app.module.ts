@@ -24,6 +24,8 @@ import { ChartsModule } from 'ng2-charts';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './guards/auth.guard';
 import { LoginGuard } from './guards/login.guard';
+import { ProfileComponent } from './components/profile/profile.component';
+import { UserComponent } from './components/user/user.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { LoginGuard } from './guards/login.guard';
     TypefileComponent,
     CompformComponent,
     RequestformComponent,
-    LoginComponent
+    LoginComponent,
+    ProfileComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,

@@ -7,7 +7,7 @@
 
 <div class="row top-50">
   <div class="col-md-4 col-xs-12" *ngFor="let r of requests;let i = index;" style="cursor: pointer;margin-bottom: 15px;">
-    <div class="card request-card animated slideInLeft">
+    <div class="card request-card animated fadeIn">
       <div class="card-body">
           <span class="text-center float-right badge badge-secondary" (click)="deleteRequest(r)">x</span>
         <h5 (click)="selectRequest(r)" class="text-secondary">{{r.identity}} </h5>

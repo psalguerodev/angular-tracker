@@ -7,10 +7,11 @@
               <div class="brand">
                 <img src="./assets/img/icono.png">
               </div>
-              <div class="card fat" style="box-shadow: 6px 6px 6px 1px #ccc">
+              <div class="card" style="box-shadow: 6px 6px 6px 1px #ccc">
                 <div class="card-body">
                   <h4 class="card-title text-right text-secondary">Login</h4>
                   <form name="theForm" #theForm="ngForm" (ngSubmit)="loginForm(theForm.value)">
+                    
                     <div class="form-group">
                       <label for="register">Registro</label>
                       <input id="register" type="text" class="form-control" name="register" 
@@ -27,7 +28,7 @@
                     <div class="form-group">
                       <label>
                         <input type="checkbox" name="remember" 
-                          [(ngModel)]="user.remember"> <span *ngIf="user.remember">✔</span> Recordar cuenta
+                          [(ngModel)]="user.remember">Recordar cuenta
                       </label>
                     </div>
     
@@ -36,9 +37,6 @@
                         Ingresar
                       </button>
                     </div>
-                    <!-- <div class="margin-top20 text-center">
-                      Don't have an account? <a href="register.html">Create One</a>
-                    </div> -->
                   </form>
                 </div>
               </div>

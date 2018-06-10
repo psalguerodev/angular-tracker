@@ -1,3 +1,4 @@
+import { ProfileComponent } from './components/profile/profile.component';
 import { RequestformComponent } from './components/requestform/requestform.component';
 import { TypefileComponent } from './components/typefile/typefile.component';
 import { HomeComponent } from './components/home/home.component';
@@ -9,11 +10,14 @@ import { RequestdetailComponent } from './components/requestdetail/requestdetail
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './guards/auth.guard';
 import { LoginGuard } from './guards/login.guard';
+import { UserComponent } from './components/user/user.component';
 
 
 const appRoutes : Routes = [
     { path: 'login' , canActivate:[LoginGuard], component: LoginComponent},
     { path: 'home', canActivate:[AuthGuard], component: HomeComponent },
+    { path: 'user', canActivate:[AuthGuard], component: UserComponent},
+    { path: 'profile', canActivate:[AuthGuard], component: ProfileComponent},
     { path: 'component',canActivate:[AuthGuard], component: CompsComponent },
     { path: 'component/add', canActivate:[AuthGuard],component: CompformComponent },
     { path: 'component/:id',canActivate:[AuthGuard], component: CompformComponent },

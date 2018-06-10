@@ -5,7 +5,7 @@
 </div>
 
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-5">
     <div class="card">
       <div class="card-body">
         
@@ -20,7 +20,7 @@
           </div>
           <div class="form-group">
             <label for="">Descripción</label>
-            <input type="text" name="description" [(ngModel)]="typefile.description" id="" placeholder="Descripcion del tipo" class="form-control form-control-sm" autocomplete="off">
+            <textarea name="description" [(ngModel)]="typefile.description" placeholder="Descripcion del tipo" class="form-control form-control-sm"></textarea>
           </div>
           <div class="float-right">
               <button type="submit" class="btn btn-primary btn-sm" style="margin-right: 5px;">Guardar</button>
@@ -32,7 +32,7 @@
       </div>
     </div>
   </div>
-  <div class="col-md-6">
+  <div class="col-md-7" style="max-height: 450px;overflow-x: hidden; overflow-y: scroll">
       
     <div class="card-comp" *ngFor="let t of typefiles;let i = index;" >
       <div class="row align-middle">
