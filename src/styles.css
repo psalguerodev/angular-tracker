@@ -31,6 +31,12 @@
     height: 20px;
     text-align: center;
     vertical-align: middle;
+    font-weight: 400;
+}
+
+.icon-type:hover{
+    background: #3078de;
+    color:white !important;
 }
 
 .request-card{
