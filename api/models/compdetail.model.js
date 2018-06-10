@@ -65,7 +65,8 @@ const deleteDetail = (id) => {
                     console.log(err.message)
                     reject(err)
                 }
-                
+                console.log(id)
+                console.log(this.changes)
                 if( this.changes == 0 ){
                     reject({
                         ok:false,

@@ -33,4 +33,13 @@ export class RequestService {
     return this.http.put(`${this.url}/${request['code']}`, request)
   }
 
+  getRequestDetailByCode(request){
+    // console.log( request )
+    return this.http.get(`${this.url}/detail/${request['code']}`)
+  }
+
+  deteleRequestDetailByCode(detail){
+    return this.http.delete(`${CONF.ENDPOINT}compdetail/${detail['code']}`)
+  }
+
 }

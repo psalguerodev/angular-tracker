@@ -50,7 +50,7 @@ export class RequestformComponent implements OnInit {
       this._requestService.addRequest(formvalue).subscribe(res=>{
         if(res){
           console.log(res)
-          this.router.navigate(['request'])
+          this.router.navigate(['request','detail', res['id']])
         }
       },err=>{
         console.log( 'Error. ' ,err )

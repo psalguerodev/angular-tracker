@@ -48,14 +48,9 @@ export class ComponentService {
     return this.http.put(url,component,{})
   }
 
-  private handleError(error: string) {
-    console.error(
-      `Backend returned code ${error}, ` +
-      `body was: ${error}`);
-
-    // return an observable with a user-facing error message
-    return throwError(
-      'Something bad happened; please try again later.');
+  public addDetailComponent(detailcomponent){
+    let url = `${CONF.ENDPOINT}compdetail`
+    return this.http.post(url,detailcomponent)
   }
 
 }

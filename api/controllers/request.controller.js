@@ -246,11 +246,44 @@ const uploadFileRequest = ( request , response , nextFunction ) => {
     })
 }
 
+const getRequestDetailByCode = ( request , response , nextFunction ) => {
+    const id = request.params.id || null
+
+    if(isNaN(id) || !id || id == null ){
+        return response.status(400).json({
+            ok:false,
+            message:'El ID debe es obligatorio '
+        })
+    }
+
+    Request.getRequestDetailByCode(id).then(result=>{
+        if(result){
+            return response.status(200).json({
+                ok:false,
+                request: id,
+                message:'Se ha listado los componentes afectados',
+                body: result
+            })
+        }
+    })
+    .catch(err=>{
+        if(err){
+            return response.status(500).json({
+                ok:false,
+                message:'Error al procesar, verificar',
+                error:err
+            })
+        }
+    })
+
+}
+
 module.exports = {
     addRequest,
     updateRequest,
     deleteRequest,
     listAllRequest,
     uploadFileRequest,
-    getRequestByCode
+    getRequestByCode,
+    getRequestDetailByCode
 }

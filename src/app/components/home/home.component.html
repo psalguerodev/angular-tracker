@@ -1,18 +1,20 @@
-<div class="row top-50 justify-content-center animated fadeIn">
-  <div class="col-md-4">
-    <div class="card bg-card mb-3 animated bounceIn" style="max-width: 18rem;">
-      <div class="card-body text-center">
-        <h5 class="card-title">Total de Componentes</h5>
-        <h1 class="text-secondary">20</h1>
-      </div>
+<div class="row top-50 animated fadeInDown">
+  <div class="col-md-12">
+    <h2 class="float-left text-secondary">Dashboard</h2>
+  </div>
+</div>
+
+<div class="row top-50">
+  <div class="col-md-6">
+    <div style="display: block">
+      <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType" (chartHover)="chartHovered($event)"
+        (chartClick)="chartClicked($event)"></canvas>
     </div>
   </div>
-  <div class="col-md-4">
-    <div class="card bg-card mb-3 animated bounceIn" style="max-width: 18rem;">
-      <div class="card-body text-center">
-        <h5 class="card-title">Total de Requerimientos</h5>
-        <h1 class="text-secondary">20</h1>
-      </div>
+  <div class="col-md-6">
+    <div style="display: block">
+      <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType" (chartHover)="chartHovered($event)"
+        (chartClick)="chartClicked($event)"></canvas>
     </div>
   </div>
 </div>

@@ -120,7 +120,7 @@ const getRequestByCode = (code) => {
     return new Promise((resolve,reject) => {
         let db = database.connection()
         if(null!=db){
-            db.get(sql_query.SELECTONE, [code],function(err,row){
+            db.get(sql_query.SELECTONE,[code],function(err,row){
                 if(err){
                     console.log(err.message)
                     reject(err)
@@ -138,11 +138,39 @@ const getRequestByCode = (code) => {
     })
 }
 
+const getRequestDetailByCode = (code) => {
+    return new Promise((resolve,reject) => {
+        let db = database.connection()
+        if(null!=db){
+            let sql_detail = `select c.code,cc.extension,cc.name,cc.pathfile,c.title,c.details,c.user,c.created,c.updated
+            from component_details c
+            inner join components cc on c.component = cc.code 
+            where request = ?`
+            let details = []
+            db.all(sql_detail,[code],function(err,rows){
+                if(err){
+                    console.log(err.message)
+                    reject(err)
+                }
+
+                if(rows || rows != undefined){
+                    console.log('Encontrado')
+                    resolve(rows)
+                }else{
+                    console.log('No hay lista')
+                    resolve({})
+                }
+            })
+        }
+    })
+}
+
 module.exports = {
     addRequest,
     updateRequest,
     deleteRequest,
     listAllRequest,
     updateFileRequest,
-    getRequestByCode
+    getRequestByCode,
+    getRequestDetailByCode
 }

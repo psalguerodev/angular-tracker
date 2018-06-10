@@ -36,5 +36,21 @@ export class RequestComponent implements OnInit {
     this.router.navigate(['request', request['code']])
   }
 
+  deleteRequest(request){
+    console.log( request )
+    if(confirm(`¿Desea eliminar el requerimiento ${request['identity']} ?`)){
+      this._requestService.deleteRequest(request).subscribe(res=>{
+        if(res){
+          this.listRequest()
+        }
+      })
+    }
+  }
+
+  showDetail(request){
+    console.log('Request',request)
+    this.router.navigate(['request', 'detail' ,request['code']])
+  }
+
 
 }

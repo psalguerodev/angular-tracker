@@ -20,6 +20,8 @@ import { CompformComponent } from './components/compform/compform.component';
 import { RequestformComponent } from './components/requestform/requestform.component';
 import { TypefileService } from './services/typefile/typefile.service';
 import { RequestService } from './services/request/request.service';
+import { ChartsModule } from 'ng2-charts';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -33,13 +35,15 @@ import { RequestService } from './services/request/request.service';
     FindComponent,
     TypefileComponent,
     CompformComponent,
-    RequestformComponent
+    RequestformComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
     APP_ROUTES,
+    ChartsModule,
     PaginationModule.forRoot(),
     Ng2TableModule
   ],

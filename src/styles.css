@@ -16,6 +16,9 @@
     margin-bottom: 10px;
     cursor: pointer;
 }
+.card-comp:hover{
+    background:rgba(0, 10, 255, 0.1);
+}
 .icon-type{
     padding: 5px;
     font-weight: bold;
@@ -35,5 +38,6 @@
 }
 
 .request-card:hover{
-    
+   background:#000aff17;
+   border:1px solid #3078de;
 }

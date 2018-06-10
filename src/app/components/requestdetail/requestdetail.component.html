@@ -1,3 +1,124 @@
-<p>
-  requestdetail works!
-</p>
+<div class="row top-50 animated fadeInUp">
+    <div class="col-md-12">
+      <a href="$" class="btn btn-primary btn-sm float-right">{{ request?.status }}</a>
+      <h2 class="text-secondary">Requerimiento</h2>
+      <h5 class="text-secondary float-left"><a [routerLink]="['/request',idrequest]">{{  request?.identity }}</a> / {{ request?.title }}</h5>
+      <small class="text-secondary float-right">Creado: {{ request?.created * 1000 | date:'M/d/yy, h:mm a'}} </small><br>
+      <small class="text-secondary float-right">Teach Lead: {{ request?.teach }}</small>
+    </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <p class="text-secondary">{{request?.details}}</p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-body">
+          <div class="card-title">
+              <h5 class="text-secondary float-left">Componentes afectados 
+                  <small class="text-dark">({{details.length}})</small>
+              </h5> 
+              <button type="button" class="float-right btn btn-sm btn-primary"
+              (click)="showform = !showform">
+                 {{ (showform)?'- Ocultar formulario':'+ Agregar Componente'}}
+              </button>
+          </div>
+          <br><br>
+          <div class="row animated fadeInUp" *ngIf="showform">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-body">
+                  <form name="theForm" #theForm="ngForm" (ngSubmit)="processForm(theForm.value)">
+                    <div class="form-group">
+                      <label for="">Componente</label>
+                      <select (ngModelChange)="onchangeSelect($event)" name="component" [(ngModel)]="detail.component" class="form-control form-control-sm" required>
+                        <option value="">Seleccionar</option>
+                        <option [value]="c.name" *ngFor="let c of components">{{c.name}}</option>
+                      </select>
+                      <small class="text-secondary">{{componentSelect.pathfile}}</small>
+                    </div>
+                    <div class="form-group">
+                      <label for="">Titulo</label>
+                      <input type="text" name="title" [(ngModel)]="detail.title" class="form-control form-control-sm" required placeholder="Titulo del cambio en el componente">
+                    </div>
+                    <div class="form-group">
+                      <label for="">Detalle</label>
+                      <textarea required name="details" [(ngModel)]="detail.details" class="form-control form-control-sm" placeholder="Detalle de los cambios"></textarea>
+                    </div>
+
+                    <button [disabled]="theForm.invalid" 
+                      type="submit" class="btn btn-primary btn-sm float-right">
+                      Guardar
+                    </button>
+
+                  </form>
+                </div>
+              </div><br>
+            </div>
+          </div>
+          
+          <!-- && (details.length > 0 && find == '') -->
+          <div class="form-group" *ngIf="!showform  ">
+            <input type="text" name="find" [(ngModel)]="find"
+                  (ngModelChange)="findComponent($event)" class="form-control form-control-sm" placeholder="Buscar componente">
+          </div>
+          
+          <div class="card-comp" *ngFor="let d of details">
+              <div class="row align-middle">
+                <div class="col-md-1 col-sm-1" style="margin:10px 4px">
+                  <h6 class="text-center text-secondary icon-type"
+                  (click)="detailselect=d"
+                  [ngStyle]="{ 'font-size' : d.extension.length >= 3 ? '12px' : '13px' }">
+                    {{d.extension}}
+                  </h6>
+                </div>
+                <div class="col-md-10 col-sm-10" style="margin-left: 15px;">
+                  <small class="float-right text-secondary" (click)="deleteDetail(d)">X</small>
+                  <small (click)="detailselect=d">{{d.name}}</small>
+                  <br>
+                  <small ><span class="text-secondary">{{d.title}}</span></small>
+                </div>
+              </div>
+          </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6" *ngIf="detailselect != null">
+    <div class="card animated fadeInRight">
+        <div class="card-body">
+            <small class="float-right text-secondary" style="cursor: pointer;" (click)="detailselect = null">X</small>
+            <h6 class="text-secondary">{{detailselect.title}}</h6>
+            <div class="card-comp">
+                <div class="row align-middle">
+                  <div class="col-md-1 col-sm-1" style="margin:10px 4px">
+                    <h6 class="text-center text-secondary icon-type"
+                    [ngStyle]="{ 'font-size' : detailselect.extension.length >= 3 ? '12px' : '13px' }">
+                      {{detailselect.extension}}
+                    </h6>
+                  </div>
+                  <div class="col-md-10 col-sm-10" style="margin-left: 15px;">                
+                    <small >{{detailselect.name}}</small>
+                    <br>
+                    <small ><span class="text-secondary">{{detailselect.pathfile}}</span></small>
+                  </div>
+                </div>
+            </div>
+            <div class="form-group text-secondary" style="font-size: 0.8rem">
+              <label class="float-right">{{ detailselect.created * 1000 | date:'M/d/yy, h:mm a' }}</label>
+              <label for=""><strong>Detalle</strong></label>
+              <p>{{ detailselect.details }}</p>
+            </div>
+            <div class="text-secondary" style="font-size: 0.8rem">
+                <p class="float-left"><strong>Usuario</strong> {{ detailselect.user }}</p>
+                <p class="float-right">Patrick Salguero Avalos</p>
+            </div>
+              
+        </div>
+    </div>
+  </div>
+</div>

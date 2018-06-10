@@ -5,6 +5,7 @@ import { RequestComponent } from './components/request/request.component';
 import { CompsComponent } from './components/comps/comps.component';
 import { RouterModule,Routes } from '@angular/router';
 import { CompformComponent } from './components/compform/compform.component';
+import { RequestdetailComponent } from './components/requestdetail/requestdetail.component';
 
 
 const appRoutes : Routes = [
@@ -16,6 +17,7 @@ const appRoutes : Routes = [
     { path: 'request', component: RequestComponent },
     { path: 'request/add', component: RequestformComponent },
     { path: 'request/:id', component: RequestformComponent },
+    { path: 'request/detail/:id', component: RequestdetailComponent },
     { path : '**', redirectTo: 'home' }
 ]
 
