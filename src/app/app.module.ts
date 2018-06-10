@@ -22,6 +22,8 @@ import { TypefileService } from './services/typefile/typefile.service';
 import { RequestService } from './services/request/request.service';
 import { ChartsModule } from 'ng2-charts';
 import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './guards/auth.guard';
+import { LoginGuard } from './guards/login.guard';
 
 @NgModule({
   declarations: [
@@ -50,7 +52,9 @@ import { LoginComponent } from './login/login.component';
   providers: [
     ComponentService,
     TypefileService,
-    RequestService
+    RequestService,
+    AuthGuard,
+    LoginGuard
   ],
   bootstrap: [AppComponent]
 })

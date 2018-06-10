@@ -1,3 +1,4 @@
+import { LoginService } from './../../../services/login/login.service';
 import { Component, OnInit } from '@angular/core';
 declare var $;
 
@@ -8,13 +9,20 @@ declare var $;
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+
+  constructor(
+    public _loginService:LoginService
+  ) { }
 
   ngOnInit() {
   }
 
   onclickMenu() {
     $("#btnToggle").click()
+  }
+
+  logout(){
+    this._loginService.logout()
   }
 
 }

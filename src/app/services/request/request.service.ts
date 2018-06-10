@@ -42,4 +42,7 @@ export class RequestService {
     return this.http.delete(`${CONF.ENDPOINT}compdetail/${detail['code']}`)
   }
 
+  updateRequestDetail(detail){
+    return this.http.put(`${CONF.ENDPOINT}compdetail/${detail['code']}`,detail)
+  }
 }

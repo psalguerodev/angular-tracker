@@ -15,16 +15,23 @@
       </li>
       <li class="nav-item" routerLinkActive="active">
           <a class="nav-link" (click)="onclickMenu()" routerLink='/typefile'>Tipo Componentes</a>
-        </li>
+      </li>
+      <li *ngIf="_loginService.isAdmin" class="nav-item" routerLinkActive="active">
+          <a class="nav-link" (click)="onclickMenu()" routerLink='/user'>Usuarios</a>
+      </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <!-- <input class="form-control mr-sm-2" type="search" placeholder="Buscar componente" aria-label="Búsqueda"> -->
-      <!-- <button class="btn btn-dark my-2 my-sm-0" type="submit">Buscar</button> -->
-    </form>
 
-    <span class="navbar-text">
-        #Patrick Salguero
-    </span>
-
+    <ul class="navbar-nav ">
+          <li class="nav-item dropdown active">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{ _loginService.getUser()['name']  }} {{_loginService.getUser()['lastname']}}
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item"  href="#">Cambiar clave</a>
+                <a class="dropdown-item" href="#">Ayuda</a>
+                <a class="dropdown-item" href="#" (click)="logout()" >Cerrar Sesión</a>
+              </div>
+            </li>
+    </ul>
   </div>
 </nav>
