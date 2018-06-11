@@ -33,7 +33,7 @@ app.use(function(req, res, next) {
 //Middlewares
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-app.use(express.static(path.join(__dirname, "dist/tracker")));
+app.use(express.static(path.join(__dirname, "public/")));
 app.use('/uploads',express.static('api/uploads'),serverIndex( __dirname +'/api/uploads',{'icons': true}) )
 
 //	Rutas
