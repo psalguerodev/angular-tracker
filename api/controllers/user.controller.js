@@ -40,7 +40,9 @@ const updateUser = ( request , response , nextFunction ) => {
     const body = request.body
     const id = parseInt(request.params.id) || 0
 
-    if(!body.name || !body.lastname || !body.email || !body.nickname || id == 0 || !body.active) {
+    console.log(body)
+    if(!body.name || !body.email || !body.nickname || id == 0 || !body.active) {
+        console.log(body)
         return response.status(400).json({
             ok:false,
             message:'Todos los campos son obligatorios'

@@ -1,3 +1,19 @@
-<p>
-  user works!
-</p>
+<div class="row top-50 animated fadeInUp">
+    <div class="col-md-12">
+      <a routerLink="/user/add" class="btn btn-primary float-right">+ Nuevo Usuario</a>
+      <h2 class="float-left text-secondary">Usuarios</h2>
+    </div>
+</div>
+
+<div class="row top-50">
+    <div class="col-md-4" *ngFor="let u of users"  style="margin-bottom:20px;">
+        <div class="card">
+            <div class="card-body" style="border-left: 2px solid #3078de">
+                <small class="float-right text-secondary cursor" (click)="deleteUser(u)">X</small>
+                <h6 class="card-title text-primary"><strong>{{u['name']}} {{u['lastname']}}</strong></h6>
+                <small class="text-secondary">Registro: <strong>{{u['nickname']}}</strong></small><br>
+                <small class="text-secondary">{{u['email']}}</small>
+            </div>
+        </div>
+    </div>
+</div>

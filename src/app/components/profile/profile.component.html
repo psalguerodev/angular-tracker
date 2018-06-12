@@ -32,7 +32,7 @@
     <div class="card">
       <div class="card-body">
         <h4 class="text-secondary">Actualizar datos</h4>
-        <form action="">
+        <form name="theFormUpdate" #theFormUpdate="ngForm" (ngSubmit)="processForm(theFormUpdate.value)">
           <div class="form-group">
             <label for="">Registro</label>
             <input type="text" name="nickname" [(ngModel)]="user.nickname" class="form-control form-control-sm"  placeholder="XT7226">
@@ -49,6 +49,7 @@
               <label for="">Email</label>
               <input type="text" name="email" [(ngModel)]="user.email" class="form-control form-control-sm" placeholder="Email">
             </div>
+          <p class="float-left" *ngIf="message != '' ">{{message}}</p>
           <button type="submit" class="btn btn-primary btn-sm float-right">Actualizar</button>
         </form>
       </div>

@@ -1,0 +1,45 @@
+<div class="row top-50 animated fadeInUp">
+    <div class="col-md-12">
+      <h2 class="float-left text-secondary">Agregar usuario</h2>
+    </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <form name="theForm" #theForm="ngForm" (ngSubmit)="processForm(theForm.value)">
+          <div class="form-group">
+            <label for="">Nombres</label>
+            <input type="text" name="name" [(ngModel)]="user.name" required 
+                  class="form-control form-control-sm" placeholder="Nombres">  
+          </div>
+
+          <div class="form-group">
+              <label for="">Apellidos</label>
+              <input type="text" name="lastname" [(ngModel)]="user.lastname" required
+                    class="form-control form-control-sm" placeholder="Apellidos">  
+          </div>
+
+          <div class="form-group">
+              <label for="">Registro</label>
+              <input type="text" name="nickname" [(ngModel)]="user.nickname" required
+                    class="form-control form-control-sm" placeholder="Registro">  
+          </div>
+
+          <div class="form-group">
+              <label for="">Email</label>
+              <input type="email" name="email" [(ngModel)]="user.email" required
+                    class="form-control form-control-sm" placeholder="Email">  
+          </div>
+
+          <div class="float-right">
+            <button type="submit" [disabled]="theForm.invalid" class="btn btn-primary btn-sm " style="margin-right:5px;">Guardar</button>
+            <button (click)="cancelBtn()" type="button" class="btn btn-secondary btn-sm ">Cancelar</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

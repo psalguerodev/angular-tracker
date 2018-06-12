@@ -11,12 +11,14 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './guards/auth.guard';
 import { LoginGuard } from './guards/login.guard';
 import { UserComponent } from './components/user/user.component';
+import { UserformComponent } from "src/app/components/userform/userform.component";
 
 
 const appRoutes : Routes = [
     { path: 'login' , canActivate:[LoginGuard], component: LoginComponent},
     { path: 'home', canActivate:[AuthGuard], component: HomeComponent },
     { path: 'user', canActivate:[AuthGuard], component: UserComponent},
+    { path: 'user/add', canActivate:[AuthGuard], component: UserformComponent},
     { path: 'profile', canActivate:[AuthGuard], component: ProfileComponent},
     { path: 'component',canActivate:[AuthGuard], component: CompsComponent },
     { path: 'component/add', canActivate:[AuthGuard],component: CompformComponent },

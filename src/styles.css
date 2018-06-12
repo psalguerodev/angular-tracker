@@ -74,3 +74,6 @@
 body,html{
     height: 100%;
 }
+.cursor{
+    cursor: pointer;
+}
