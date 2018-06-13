@@ -32,5 +32,9 @@ export class UserService {
     return this.http.get(this.url)
   }
 
+  changePassword(user){
+    return this.http.post(`${this.url}/changepassword/${user['code']}`,user)
+  }
+
 
 }

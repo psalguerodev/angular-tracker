@@ -10,9 +10,9 @@
     <div class="card request-card animated fadeIn">
       <div class="card-body">
           <span class="text-center float-right badge badge-secondary" (click)="deleteRequest(r)">x</span>
-        <h5 (click)="selectRequest(r)" class="text-secondary">{{r.identity}} </h5>
+        <h5 (click)="selectRequest(r)" class="text-primary">{{r.identity}} </h5>
         <span (click)="selectRequest(r)" style="font-size: 0.9rem">{{r.title}}</span> <br>
-        <small>Componentes: <span class="badge badge-primary">23</span></small> <small class="float-right">Creación: <span class="badge badge-info"> 23/12/2017</span></small> <br>
+        <small>Componentes: <span class="badge badge-primary">23</span></small> <small class="float-right">Creación: <span class="badge badge-info"> {{ r.created | date}}</span></small> <br>
         <small>Estado: <span class="badge badge-success">{{r.status}}</span></small> 
         <h5 class="float-right text-secondary">{{r.teach}}</h5>
         <br><br>

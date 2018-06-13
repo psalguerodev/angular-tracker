@@ -100,7 +100,7 @@ export class RequestdetailComponent implements OnInit {
           this.getRequestDetail()
           this.detail = {componet:''}
           this.showform = false
-          
+          this.componentSelect = null
         }
       },err =>{
         console.log( 'Error. ' ,err )  
