@@ -73,7 +73,7 @@ export class RequestdetailComponent implements OnInit {
   }
 
   getComponents(){
-    this._componentService.getListComponents().subscribe(res=>{
+    this._componentService.getListComponents(0).subscribe(res=>{
       if(res) {
         console.log(res)
         this.components = res['body'] || []

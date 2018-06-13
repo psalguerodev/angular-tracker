@@ -8,11 +8,28 @@ let sql_query = {
     where c.code =?`
 }
 
-const getListAllComponents = () => {
+const getListAllComponents = (page) => {
     return new Promise((resolve,reject)=> {
         let db = database.connection()
         if( db != null ) {
-            db.all('select * from components',[], function(err,rows) {
+            db.all(`select * from components limit ?,20 `,[page], function(err,rows) {
+                if(err) {
+                    console.log(err.message)
+                    reject(err)
+                }
+
+                db.close()
+                resolve(rows)
+            })
+        }
+    })
+}
+
+const getCountComponent = () => {
+    return new Promise((resolve,reject)=> {
+        let db = database.connection()
+        if( db != null ) {
+            db.get(`select count(*) as total from components `,[], function(err,rows) {
                 if(err) {
                     console.log(err.message)
                     reject(err)

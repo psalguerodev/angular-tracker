@@ -12,7 +12,6 @@ import { catchError, retry } from 'rxjs/operators';
 })
 export class ComponentService {
 
-
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
@@ -22,8 +21,8 @@ export class ComponentService {
 
   constructor(private http: HttpClient , private _router : Router) { }
 
-  public getListComponents() {
-    let url = `${CONF.ENDPOINT}component` 
+  public getListComponents(page:number) {
+    let url = `${CONF.ENDPOINT}component/${page}` 
     return this.http.get(url)
   }
 

@@ -2,6 +2,7 @@ import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { TableData } from '../../mock/DataTable';
 import { ComponentService } from '../../services/components/component.service';
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-comps',
@@ -11,8 +12,13 @@ import { ComponentService } from '../../services/components/component.service';
 export class CompsComponent implements OnInit {
 
   public components: any  = []
+  public page:number = 0
 
-  constructor(public _compService : ComponentService, public router : Router) {
+  constructor(
+    public _compService : ComponentService, 
+    public router : Router,
+    public activedRoute:ActivatedRoute
+  ) {
 
   }
 
@@ -21,7 +27,7 @@ export class CompsComponent implements OnInit {
   }
 
   listComponents(){
-    this._compService.getListComponents().subscribe(data => {
+    this._compService.getListComponents(this.page).subscribe(data => {
       this.components = data['body']
       console.log(this.components)
     },err => {

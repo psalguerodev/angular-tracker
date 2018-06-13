@@ -1,7 +1,14 @@
 const Component = require('../models/component.model')
 
 const getListAllComponents = (request,response,next) => {
-   Component.getListAllComponents()
+ 
+    let page = request.params.page || 0
+
+    if( !page || page == undefined || isNaN(page)){
+        page = 0
+    } 
+
+   Component.getListAllComponents(page)
    .then(components => {
        if( !components ) {
         return response.status(400).json({
