@@ -24,7 +24,7 @@
             <input required type="password" name="re_password" [(ngModel)]="userpass.re_password" class="form-control form-control-sm" placeholder="Repita la clave">
           </div>
           <label class="float-left">{{passmessage}}</label>
-          <button [disabled]="theFormPass.invalid || (userpass.current_pass != userpass.password)"
+          <button [disabled]="theFormPass.invalid || (userpass.re_password != userpass.password)"
             type="submit" class="btn btn-primary btn-sm float-right">Actualizar
           </button>
         </form>

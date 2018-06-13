@@ -31,8 +31,9 @@ const addComponent = (name, pathfile , extension ) => {
         let currentDate = new Date()
         let dateCreated = currentDate.getFullYear()
         if( db != null ) {
-            let sql = 'insert into components(name,pathfile,extension,created,updated) values(?,?,?,?,?)'
-            db.run(sql, [name,pathfile, extension, currentDate,currentDate] , function(err) {
+            console.log('conectado')
+            let sql = 'insert into components(name,pathfile,extension,created) values(?,?,?,?)'
+            db.run(sql, [name,pathfile, extension, currentDate] , function(err) {
                 if( err ) {
                     console.log(err)
                     reject(err)  

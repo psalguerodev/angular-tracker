@@ -86,6 +86,8 @@ const getComponentByCode = ( request , response , nextFunction ) => {
 const addComponent = (request,response,next) => {
     const body = request.body
     
+    console.log("BODY",body)
+
     if( !body.name || !body.filepath || !body.extension ) {
         return response.status(400).json({
             ok: false ,

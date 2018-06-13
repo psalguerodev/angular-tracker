@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt')
 const addUser = ( request , response , nextFunction ) => {
     const body = request.body || null
 
-    if(!body.name || !body.lastname || !body.email || !body.nickname || !body.password ) {
+    if(!body.name ||  !body.email || !body.nickname || !body.password ) {
         return response.status(400).json({
             ok:false,
             message:'Todos los campos son obligatorios'
