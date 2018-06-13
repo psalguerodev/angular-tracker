@@ -24,16 +24,14 @@ export class LoginComponent implements OnInit {
 
   loginForm(valueform){
     this.loading = true
-    setTimeout(()=> {
-      valueform['register'] = valueform['register'].toUpperCase()
-      this._loginService.login(valueform).then(data=>{
-        this.loading = false
-        this._router.navigate(['component'])
-      }).catch(err => {
-        console.log(err)
-        this.loading =false
-      })
-    }, 1000)
+    valueform['register'] = valueform['register'].toUpperCase()
+    this._loginService.login(valueform).then(data=>{
+      this.loading = false
+      this._router.navigate(['component'])
+    }).catch(err => {
+      console.log(err)
+      this.loading =false
+    })
   }
 
 }

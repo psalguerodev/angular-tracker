@@ -28,6 +28,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { UserComponent } from './components/user/user.component';
 import { UserService } from "src/app/services/user/user.service";
 import { UserformComponent } from './components/userform/userform.component';
+import { AdminGuard } from "src/app/guards/admin.guard";
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { UserformComponent } from './components/userform/userform.component';
     RequestService,
     AuthGuard,
     LoginGuard,
-    UserService
+    UserService,
+    AdminGuard
   ],
   bootstrap: [AppComponent]
 })

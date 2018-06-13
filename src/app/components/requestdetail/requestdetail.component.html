@@ -79,7 +79,9 @@
                     </div>
                     <div class="col-md-10 col-sm-10" style="margin-left: 15px;">
                       <small class="float-right text-secondary" (click)="deleteDetail(d)">X</small>
-                      <small (click)="select(d)">{{d.name}}</small>
+                      <small (click)="select(d)">
+                        <strong class="text-primary">{{d.name}}</strong>
+                      </small>
                       <br>
                       <small ><span class="text-secondary">{{d.title}}</span></small>
                     </div>

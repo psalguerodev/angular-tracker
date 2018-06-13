@@ -11,13 +11,16 @@
       <div class="card-body">
           <span class="text-center float-right badge badge-secondary" (click)="deleteRequest(r)">x</span>
         <h5 (click)="selectRequest(r)" class="text-primary">{{r.identity}} </h5>
-        <span (click)="selectRequest(r)" style="font-size: 0.9rem">{{r.title}}</span> <br>
-        <small>Componentes: <span class="badge badge-primary">23</span></small> <small class="float-right">Creación: <span class="badge badge-info"> {{ r.created | date}}</span></small> <br>
-        <small>Estado: <span class="badge badge-success">{{r.status}}</span></small> 
-        <h5 class="float-right text-secondary">{{r.teach}}</h5>
-        <br><br>
-        <small class="float-right">
-            <button (click)="showDetail(r)" class="btn btn-outline-primary btn-block">Ver detalles</button>
+        <span (click)="selectRequest(r)" style="font-size: 1.3rem">{{r.title}}</span> <br>
+        <!-- <small>Componentes: <span class="badge badge-primary">23</span></small>  -->
+        <div style="margin-top:10px">
+            <small class="float-left">Creación: <span class="badge badge-info"> {{ r.created | date}}</span></small>
+            <small class="float-right">Estado: <span class="badge badge-success">{{r.status}}</span></small> <br>
+        </div>
+        <h5 style="margin-top:10px" class="float-left text-secondary">{{r.teach}}</h5>
+        
+        <small class="float-right" style="margin-top:10px">
+            <button (click)="showDetail(r)" class="btn btn-sm btn-outline-primary btn-block">Ver detalles</button>
         </small>
       </div>
     </div>
