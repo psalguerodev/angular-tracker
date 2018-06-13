@@ -10,11 +10,11 @@ import { Router } from "@angular/router";
 })
 export class UserformComponent implements OnInit {
 
-  private user:any = {}
+  public user:any = {}
 
   constructor(
-    private _userService:UserService,
-    private router:Router
+    public _userService:UserService,
+    public router:Router
   ) { }
 
   ngOnInit() {

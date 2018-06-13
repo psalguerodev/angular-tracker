@@ -33,7 +33,7 @@ export class UserService {
   }
 
   changePassword(user){
-    return this.http.post(`${this.url}/changepassword/${user['code']}`,user)
+    return this.http.put(`${this.url}/changepassword/${user['code']}`,user)
   }
 
 

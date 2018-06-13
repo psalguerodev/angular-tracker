@@ -12,6 +12,9 @@ export class ProfileComponent implements OnInit {
 
   public user:any = {}
   public message:string = ''
+
+  public userpass:any = {}
+  public passmessage:string = ''
   
   constructor(
     public _loginService:LoginService,
@@ -29,6 +32,18 @@ export class ProfileComponent implements OnInit {
       this.message = 'Actualizado'
     },err => {
       console.log(err);
+    })
+  }
+
+  processFormPass(formvalue){
+    console.log(formvalue)
+    formvalue['code'] = this.user['code']
+    this._userSerice.changePassword(formvalue).subscribe(res=>{
+      this.passmessage = 'Clave actualizada'
+      this.userpass = {}
+      console.log(res)
+    },err=>{
+      console.log(err)
     })
   }
 
