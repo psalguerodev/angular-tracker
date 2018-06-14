@@ -16,6 +16,7 @@ export class CompsComponent implements OnInit , OnDestroy{
   public countNext:number = 0
   public total:number = 0
   public itemStorage:string = 'page-component-tracker'
+  public find:string = ''
 
   constructor(
     public _compService : ComponentService, 
@@ -75,5 +76,25 @@ export class CompsComponent implements OnInit , OnDestroy{
     },err => {
       console.log('Error. ' , err )
     })
+  }
+
+
+  findComponent(evento:string){
+    console.log(evento)
+
+    if(evento.length == 0 ){
+      this.listComponents()
+      return
+    }
+
+    if(evento.length > 2 ){
+      this._compService.findComponentByName(evento).subscribe((result:any)=>{
+        if(result){
+          this.components = result['body']
+        }
+      },err => {
+        console.log('Error: ' , err )
+      })
+    }
   }
 }

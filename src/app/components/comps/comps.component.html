@@ -11,7 +11,12 @@
   <div class="col-md-5">
     <form action="">
       <div class="form-group">
-        <input type="text" name="" placeholder="Buscar por nombre del componente" id="" class="form-control form-control-sm" style="border-radius: 15px">
+        <input type="text" name="find" 
+               placeholder="Buscar por nombre del componente"
+               class="form-control form-control-sm"
+               [(ngModel)]="find"
+               (ngModelChange)="findComponent($event)"
+               style="border-radius: 15px">
       </div>
     </form>
   </div>
@@ -24,7 +29,7 @@
 </div>
 
 <div class="row animated fadeIn top-50">
-  <div class="col-lg-4 col-sm-6 col-sm-12 col-xs-12 animated fadeInUp" *ngFor="let c of components;let i = index;">
+  <div class="col-lg-4 col-sm-6 col-sm-12 col-xs-12 animated fadeIn" *ngFor="let c of components;let i = index;">
     <!-- <small>{{c|json}}</small> -->
     <div class="card-comp" [ngStyle]="{'border-left': (c.current_user != '') ? '4px solid rgb(221, 0, 49)' : ''}">
       <div class="row align-middle">
@@ -45,8 +50,16 @@
   </div>
 </div>
 
+<div class="row" *ngIf="components.length == 0">
+  <div class="col-md-12">
+      <div class="alert alert-primary text-center">
+        <span >No se han encontrado registros</span>
+      </div>
+  </div>
+</div>
+
 <div class="row animated fadeIn justify-content-md-center top-50" style="padding-bottom: 20px">
   <div class="col-md-12 text-center" >
-    <button type="button" class="btn btn-outline-secondary btn-sm" (click)="loadMore()" >Cargar Más ...</button>
+    <button type="button" class="btn btn-outline-secondary btn-sm" (click)="loadMore()" *ngIf="find.length == 0" >Cargar Más ...</button>
   </div>
 </div>

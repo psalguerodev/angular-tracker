@@ -62,4 +62,8 @@ export class ComponentService {
     return this.http.post(url,detailcomponent)
   }
 
+  public findComponentByName(name:string){
+    return this.http.get(`${CONF.ENDPOINT}component/find/comp/${name.trim()}`)
+  }
+
 }

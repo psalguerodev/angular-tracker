@@ -226,11 +226,32 @@ const updateActivedByRequest = (requestid) => {
                             }
                         })
                     }
+                    db.close()
                     resolve((affected=1)?true:false)
                 }
 
+                db.close()
                 resolve(false)
 
+            })
+        }
+    })
+}
+
+const findComponentByText = (name) => {
+    return new Promise((resolve,reject)=>{
+        let db= database.connection()
+        if(null!=db){
+            let sql=`select * from components where name like '%${name}%'  limit 20`
+            console.log(name)
+            db.all(sql,[],function(err,rows){
+                if(err){
+                    console.log(err.message)
+                    reject(err)
+                }
+
+                db.close()
+                resolve(rows)
             })
         }
     })
@@ -245,5 +266,6 @@ module.exports = {
     getComponentByCode,
     listAllComponents,
     updateActived,
-    updateActivedByRequest
+    updateActivedByRequest,
+    findComponentByText
 }

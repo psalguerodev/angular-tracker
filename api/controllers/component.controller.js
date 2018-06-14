@@ -299,6 +299,36 @@ const updateComponentsByRequest = (request,response,next) => {
     })
 }
 
+
+const findComponentByName = (request,response,next) => {
+
+    let name = request.params.name || ''
+
+    if( name.length == 0 || !name){
+        return response.status(400).json({
+            ok:false,
+            message:'El nombre del componente a buscar es obligatorio'
+        })
+    }
+
+    Component.findComponentByText(name).then(results=>{
+        if(results){
+            return response.status(200).json({
+                ok:true,
+                message:'Listado de componentes',
+                body:results
+            })
+        }
+    },err => {
+        return response.status(500).json({
+            ok:false,
+            message:'Error al procesar busqueda',
+            error:err
+        })
+    })
+
+}
+
 module.exports = {
     addComponent,
     updateComponent,
@@ -307,5 +337,6 @@ module.exports = {
     getComponentByCode,
     ListAllComponents,
     updateActivated,
-    updateComponentsByRequest
+    updateComponentsByRequest,
+    findComponentByName
 }
