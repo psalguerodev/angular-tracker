@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , OnDestroy } from '@angular/core';
 import { TableData } from '../../mock/DataTable';
 import { ComponentService } from '../../services/components/component.service';
 import { ActivatedRoute } from "@angular/router";
@@ -9,10 +9,13 @@ import { ActivatedRoute } from "@angular/router";
   templateUrl: './comps.component.html',
   styleUrls: ['./comps.component.css']
 })
-export class CompsComponent implements OnInit {
+export class CompsComponent implements OnInit , OnDestroy{
 
   public components: any  = []
   public page:number = 0
+  public countNext:number = 0
+  public total:number = 0
+  public itemStorage:string = 'page-component-tracker'
 
   constructor(
     public _compService : ComponentService, 
@@ -23,11 +26,17 @@ export class CompsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.countNext = parseInt(localStorage.getItem(this.itemStorage),10) || 20
+    this.page      = (this.countNext != 0 ) ? 0 : this.page
     this.listComponents()
   }
 
+  ngOnDestroy(){
+    localStorage.removeItem(this.itemStorage)
+  }
+
   listComponents(){
-    this._compService.getListComponents(this.page).subscribe(data => {
+    this._compService.getListComponents(this.page,this.countNext).subscribe(data => {
       this.components = data['body']
       console.log(this.components)
     },err => {
@@ -50,5 +59,21 @@ export class CompsComponent implements OnInit {
         console.error('Error:' + err )
       })
     }
+  }
+
+  loadMore(){
+    this.countNext += 20;
+    localStorage.setItem(this.itemStorage, this.countNext.toString())
+    this._compService.getListComponents(this.countNext,20).subscribe((data:any)=>{
+
+      if(data && this.components ){
+        data['body'].forEach( c => {
+          this.components.push(c)
+        });
+      }
+
+    },err => {
+      console.log('Error. ' , err )
+    })
   }
 }

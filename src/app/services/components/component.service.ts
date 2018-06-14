@@ -21,8 +21,13 @@ export class ComponentService {
 
   constructor(private http: HttpClient , private _router : Router) { }
 
-  public getListComponents(page:number) {
-    let url = `${CONF.ENDPOINT}component/${page}` 
+  public getListComponents(page:number,items?:number) {
+    let url = `${CONF.ENDPOINT}component/${page}/${items}` 
+    return this.http.get(url)
+  }
+
+  public listallComponent(){
+    let url = `${CONF.ENDPOINT}component/all`
     return this.http.get(url)
   }
 

@@ -73,7 +73,7 @@ export class RequestdetailComponent implements OnInit {
   }
 
   getComponents(){
-    this._componentService.getListComponents(0).subscribe(res=>{
+    this._componentService.listallComponent().subscribe(res=>{
       if(res) {
         console.log(res)
         this.components = res['body'] || []
@@ -98,9 +98,9 @@ export class RequestdetailComponent implements OnInit {
       this._componentService.addDetailComponent(formvalue).subscribe(res=>{
         if(res){
           this.getRequestDetail()
-          this.detail = {componet:''}
+          this.detail = {component:''}
+          this.componentSelect = {pathfile:''}
           this.showform = false
-          this.componentSelect = null
         }
       },err =>{
         console.log( 'Error. ' ,err )  

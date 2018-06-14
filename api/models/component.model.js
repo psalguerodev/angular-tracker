@@ -8,12 +8,30 @@ let sql_query = {
     where c.code =?`
 }
 
-const getListAllComponents = (page) => {
+const getListAllComponents = (page,items) => {
     return new Promise((resolve,reject)=> {
         let db = database.connection()
         if( db != null ) {
-            db.all(`select * from components limit ?,20 `,[page], function(err,rows) {
+            items = (!items) ? 20 : items
+            db.all(`select * from components limit ?,? `,[page,items], function(err,rows) {
                 if(err) {
+                    console.log(err.message)
+                    reject(err)
+                }
+
+                db.close()
+                resolve(rows)
+            })
+        }
+    })
+}
+
+const listAllComponents = () => {
+    return new Promise((resolve,reject) => {
+        let db = database.connection()
+        if(null != db){
+            db.all('select * from  components', [], function(err,rows){
+                if(err){
                     console.log(err.message)
                     reject(err)
                 }
@@ -151,5 +169,6 @@ module.exports = {
     deleteComponent,
     getListAllComponents,
     getDetailByCode,
-    getComponentByCode
+    getComponentByCode,
+    listAllComponents
 }

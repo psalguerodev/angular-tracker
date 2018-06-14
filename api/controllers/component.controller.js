@@ -3,12 +3,48 @@ const Component = require('../models/component.model')
 const getListAllComponents = (request,response,next) => {
  
     let page = request.params.page || 0
+    let items = request.params.items || 0
 
     if( !page || page == undefined || isNaN(page)){
         page = 0
-    } 
+    }
 
-   Component.getListAllComponents(page)
+    if( !items || items == undefined || isNaN(items)) {
+        items = 20
+    }
+
+    console.log(page,items)
+
+   Component.getListAllComponents(page , items )
+   .then(components => {
+       if( !components ) {
+        return response.status(400).json({
+            ok : false ,
+            message : 'Error al procesar proceso.'
+        })
+       }
+
+       return response.status(200).json({
+           ok :true,
+           message: 'Se ha listado los componentes',
+           total: components.length,
+           body : components
+       })
+
+   })
+   .catch(err => {
+        return response.status(400).json({
+            ok : false ,
+            message : 'Error al procesar proceso.'
+        })
+   }) 
+
+}
+
+
+const ListAllComponents = (request,response,next) => {
+ 
+   Component.listAllComponents()
    .then(components => {
        if( !components ) {
         return response.status(400).json({
@@ -194,5 +230,6 @@ module.exports = {
     updateComponent,
     deleteComponent,
     getListAllComponents,
-    getComponentByCode
+    getComponentByCode,
+    ListAllComponents
 }

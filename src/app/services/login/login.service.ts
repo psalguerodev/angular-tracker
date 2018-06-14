@@ -43,6 +43,7 @@ export class LoginService {
     this.userLoggued = null
     this.isAdmin = false
     localStorage.removeItem(this.itemstorage)
+    localStorage.removeItem('page-component-tracker')
     this.router.navigate(['login'])
   }
 

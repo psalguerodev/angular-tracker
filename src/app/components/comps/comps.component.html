@@ -7,24 +7,24 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row top-50 justify-content-md-center">
   <div class="col-md-5">
     <form action="">
       <div class="form-group">
-        <input type="text" name="" placeholder="Buscar por nombre del componente" id="" class="form-control form-control-sm">
+        <input type="text" name="" placeholder="Buscar por nombre del componente" id="" class="form-control form-control-sm" style="border-radius: 15px">
       </div>
     </form>
   </div>
-  <div class="col-md-6">
+  <!-- <div class="col-md-6">
     <button type="button" class="btn btn-outline-primary btn-sm" style="margin-right: 10px">Javascript</button>
     <button type="button" class="btn btn-outline-primary btn-sm" style="margin-right: 10px">XML</button>
     <button type="button" class="btn btn-outline-primary btn-sm" style="margin-right: 10px">ASP</button>
     <button type="button" class="btn btn-outline-primary btn-sm" style="margin-right: 10px">FAA</button>
-  </div>
+  </div> -->
 </div>
 
 <div class="row animated fadeIn top-50">
-  <div class="col-md-4 col-sm-6 col-xs-6" *ngFor="let c of components;let i = index;">
+  <div class="col-md-4 col-sm-6 col-xs-6 animated fadeInDown" *ngFor="let c of components;let i = index;">
     <div class="card-comp">
       <div class="row align-middle">
         <div class="col-md-1 col-sm-1" style="margin:10px 4px">
@@ -41,5 +41,11 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="row animated fadeIn justify-content-md-center top-50" style="padding-bottom: 20px">
+  <div class="col-md-12 text-center" >
+    <button type="button" class="btn btn-outline-primary btn-sm" (click)="loadMore()" >Cargar Más ...</button>
   </div>
 </div>

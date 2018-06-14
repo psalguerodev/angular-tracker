@@ -49,6 +49,7 @@
                       <label for="">Detalle</label>
                       <textarea required name="details" [(ngModel)]="detail.details" class="form-control form-control-sm" placeholder="Detalle de los cambios"></textarea>
                     </div>            
+                    <button type="button" class="btn btn-link float-right btn-sm" (click)="detail={component:''};componentSelect = {pathfile:''}">Limpiar</button>
                     <button [disabled]="theForm.invalid" 
                       type="submit" class="btn btn-primary btn-sm float-right">
                       Guardar

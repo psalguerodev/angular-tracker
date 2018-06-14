@@ -1,3 +1,3 @@
 export const CONF = {
-    ENDPOINT :'http://w7itdata01:5000/'
+    ENDPOINT :'http://127.0.0.1:5000/'
 }
