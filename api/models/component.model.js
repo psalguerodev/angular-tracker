@@ -180,6 +180,62 @@ const updateActived = (id,value) => {
     })
 }
 
+const updateActivedByRequest = (requestid) => {
+    let sql_request = `select cd.code,cd.title,cd.component from component_details cd
+    where request=?`
+    let sql_component = `select c.code , r.status from component_details  c
+    inner join request r on r.code =  c.request
+    where component = ? and r.status <> 'Producción'`
+
+    let sql_update_comp = `update components set current_user ='' where code=?`
+
+    return new Promise((resolve,reject)=> {
+        let db = database.connection()
+        let affected = 0
+        if(db!=null){
+            db.all(sql_request, [requestid], function(err,rows){
+                if(err){
+                    console.log(err.message)
+                    reject(err)
+                }
+
+                if(rows && rows.length > 0) {
+                    for(let i=0;i<rows.length;i++){
+                        //Verificar la disponibilidad del component
+                        db.all(sql_component,[rows[i]['component']] , function (errc,comps) {
+                            if(errc){
+                                console.log(errc.message)
+                                reject(errc)
+                            }
+                            
+                            console.log(comps)
+                            if(comps.length == 0){
+                                db.run(sql_update_comp,[ rows[i]['component'] ],function (errup) {
+                                    if(errup){
+                                        console.log(errup.message)
+                                        reject(errup)
+                                    }
+                                    
+                                    if(this.changes > 0 ){
+                                        affected=1
+                                    }
+                                })
+                                
+                            }else{
+                                affected = 0;
+                            }
+                        })
+                    }
+                    resolve((affected=1)?true:false)
+                }
+
+                resolve(false)
+
+            })
+        }
+    })
+}
+
 module.exports = {
     addComponent,
     updateComponent,
@@ -188,5 +244,6 @@ module.exports = {
     getDetailByCode,
     getComponentByCode,
     listAllComponents,
-    updateActived
+    updateActived,
+    updateActivedByRequest
 }

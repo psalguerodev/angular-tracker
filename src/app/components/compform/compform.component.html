@@ -6,7 +6,7 @@
 
 <div class="row top-50 animated fadeIn">
   <div class="col-md-6">
-      <div class="card">
+      <div class="card" [ngStyle]="{'border-top': (component.current_user != '' ) ? '4px solid rgb(221, 0, 49)':''}">
           <div class="card-body">
             
             <form #theForm="ngForm" name="theForm" (ngSubmit)="processForm(theForm.value)">

@@ -142,9 +142,11 @@ const getRequestDetailByCode = (code) => {
     return new Promise((resolve,reject) => {
         let db = database.connection()
         if(null!=db){
-            let sql_detail = `select c.code,cc.extension,cc.name,cc.pathfile,c.title,c.details,c.user,c.created,c.updated
+            let sql_detail = `select c.code,cc.extension,cc.name,cc.pathfile,c.title,c.details, u.name as name_user , 
+            u.lastname as lastname_user , c.user,c.created,c.updated
             from component_details c
             inner join components cc on c.component = cc.code 
+            inner join users u on c.user = u.nickname
             where request = ?`
             let details = []
             db.all(sql_detail,[code],function(err,rows){

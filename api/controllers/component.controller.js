@@ -263,7 +263,41 @@ const deleteComponent = ( request , response , nextFunction ) => {
 
 }
 
+const updateComponentsByRequest = (request,response,next) => {
+    const id = request.params.request || 0
 
+    if( !id || id==0 ){
+        return response.status(400).json({
+            ok:false,
+            message:'El ID es obligatorio para actualizar componentes'
+        })
+    }
+
+    Component.updateActivedByRequest(id).then(res =>{
+
+        if(res==true){
+            return response.status(200).json({
+                ok:true,
+                message:'Se han liberado nuevos componentes'
+            })
+
+        }else{
+            return response.status(200).json({
+                ok:true,
+                message:'No se han liberado componentes'
+            })
+        }
+    })
+    .catch(err=>{
+        if(err){
+            return response.status(500).json({
+                ok:false,
+                message:'Ha ocurrido un error al procesar',
+                error: err
+            })
+        }
+    })
+}
 
 module.exports = {
     addComponent,
@@ -272,5 +306,6 @@ module.exports = {
     getListAllComponents,
     getComponentByCode,
     ListAllComponents,
-    updateActivated
+    updateActivated,
+    updateComponentsByRequest
 }

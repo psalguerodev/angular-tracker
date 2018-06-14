@@ -24,7 +24,7 @@
 </div>
 
 <div class="row animated fadeIn top-50">
-  <div class="col-md-4 col-sm-6 col-xs-6 animated fadeInUp" *ngFor="let c of components;let i = index;">
+  <div class="col-lg-4 col-sm-6 col-sm-12 col-xs-12 animated fadeInUp" *ngFor="let c of components;let i = index;">
     <!-- <small>{{c|json}}</small> -->
     <div class="card-comp" [ngStyle]="{'border-left': (c.current_user != '') ? '4px solid rgb(221, 0, 49)' : ''}">
       <div class="row align-middle">
@@ -47,6 +47,6 @@
 
 <div class="row animated fadeIn justify-content-md-center top-50" style="padding-bottom: 20px">
   <div class="col-md-12 text-center" >
-    <button type="button" class="btn btn-outline-primary btn-sm" (click)="loadMore()" >Cargar Más ...</button>
+    <button type="button" class="btn btn-outline-secondary btn-sm" (click)="loadMore()" >Cargar Más ...</button>
   </div>
 </div>

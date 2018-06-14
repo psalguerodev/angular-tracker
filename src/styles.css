@@ -77,3 +77,15 @@ body,html{
 .cursor{
     cursor: pointer;
 }
+
+.border-success-card {
+    border-left: 4px solid green;
+}
+
+.border-warning-card {
+    border-left: 4px solid #856404;;
+}
+
+.border-primary-card {
+    border-left: 4px solid #3078de;
+}

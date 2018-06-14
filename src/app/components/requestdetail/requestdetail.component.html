@@ -28,7 +28,7 @@
               </button>
           </div>
           <br><br>
-          <div class="row animated fadeIn" *ngIf="showform">
+          <div class="row" *ngIf="showform">
             <div class="col-md-12">
               <div class="card">
                 <div class="card-body">
@@ -93,6 +93,7 @@
     </div><br><br>
   </div>
   <div class="col-md-6" *ngIf="detailselect != null">
+    <!-- <small>{{ detailselect | json }}</small> -->
     <div class="card animated fadeInRight">
         <div class="card-body">
             <small class="float-right text-secondary" style="cursor: pointer;" (click)="detailselect = null; iddetail=null;detail={component:''};componentSelect = {pathfile:''}">X</small>
@@ -121,7 +122,7 @@
             </div>
             <div class="text-secondary" style="font-size: 0.8rem">
                 <p class="float-left"><strong>Usuario</strong> {{ detailselect.user }}</p>
-                <p class="float-right">Registrado en TMI Tracker</p>
+                <p class="float-right">{{detailselect.name_user}} {{detailselect?.lastname_user}}</p>
             </div>
               
         </div>

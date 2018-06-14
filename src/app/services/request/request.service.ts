@@ -45,4 +45,8 @@ export class RequestService {
   updateRequestDetail(detail){
     return this.http.put(`${CONF.ENDPOINT}compdetail/${detail['code']}`,detail)
   }
+
+  freeComponentByRequest(idrequest){
+    return this.http.get(`${CONF.ENDPOINT}component/free/comps/${idrequest}`)
+  }
 }

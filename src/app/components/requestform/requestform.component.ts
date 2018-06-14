@@ -60,8 +60,20 @@ export class RequestformComponent implements OnInit {
       formvalue['code'] = this.idrequest
       this._requestService.updateRequest(formvalue).subscribe(res=>{
         if(res){
-          console.log(res)
-          this.router.navigate(['request'])
+          
+          if(formvalue['status'] == 'Producción'){
+            this._requestService.freeComponentByRequest(this.request['code'])
+              .subscribe(result=>{
+                
+                console.log(result)
+
+              },err=>{
+                console.log(err)
+              })
+          }
+          
+          // console.log(res)
+          // this.router.navigate(['request'])
         }
       },err => {
         console.error(err)
