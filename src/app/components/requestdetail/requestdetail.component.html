@@ -95,7 +95,7 @@
   <div class="col-md-6" *ngIf="detailselect != null">
     <div class="card animated fadeInRight">
         <div class="card-body">
-            <small class="float-right text-secondary" style="cursor: pointer;" (click)="detailselect = null">X</small>
+            <small class="float-right text-secondary" style="cursor: pointer;" (click)="detailselect = null; iddetail=null;detail={component:''};componentSelect = {pathfile:''}">X</small>
             <h6 class="text-secondary">{{detailselect.title}} 
               <span style="cursor: pointer;" (click)="showform=true">✎</span>
             </h6>
@@ -115,13 +115,13 @@
                 </div>
             </div>
             <div class="form-group text-secondary" style="font-size: 0.8rem">
-              <label class="float-right">{{ detailselect.created * 1000 | date:'M/d/yy, h:mm a' }}</label>
+              <label class="float-right">{{ detailselect.created | date:'M d, h:mm a' }}</label>
               <label for=""><strong>Detalle</strong></label>
               <p>{{ detailselect.details }}</p>
             </div>
             <div class="text-secondary" style="font-size: 0.8rem">
                 <p class="float-left"><strong>Usuario</strong> {{ detailselect.user }}</p>
-                <p class="float-right">Patrick Salguero Avalos</p>
+                <p class="float-right">Registrado en TMI Tracker</p>
             </div>
               
         </div>

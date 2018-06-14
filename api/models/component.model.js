@@ -13,7 +13,7 @@ const getListAllComponents = (page,items) => {
         let db = database.connection()
         if( db != null ) {
             items = (!items) ? 20 : items
-            db.all(`select * from components limit ?,? `,[page,items], function(err,rows) {
+            db.all(`select * from components order by current_user desc limit ?,?  `,[page,items], function(err,rows) {
                 if(err) {
                     console.log(err.message)
                     reject(err)
@@ -86,7 +86,7 @@ const updateComponent  = (id,name,pathfile,extension,currentuser) => {
         let db = database.connection()
         if( db != null ) {
             let sql = `update components set name=? , pathfile=? , extension=? , 
-                       updated=?, currentuser=?
+                       updated=?, current_user=?
                        where code =?`
             let updatedDate = new Date()
 
@@ -163,6 +163,23 @@ const getDetailByCode = (id) => {
     })
 }
 
+const updateActived = (id,value) => {
+    return new Promise((resolve,reject) => {
+        let db = database.connection()
+        if(db!=null){
+            let current = new Date().getTime()
+            db.run('update components set current_user =? , updated=? where code = ?' , [value,current,id], function(err) {
+                if(err){
+                    console.log(err.message)
+                    reject(err)
+                }
+                db.close()
+                resolve(true)
+            })
+        }
+    })
+}
+
 module.exports = {
     addComponent,
     updateComponent,
@@ -170,5 +187,6 @@ module.exports = {
     getListAllComponents,
     getDetailByCode,
     getComponentByCode,
-    listAllComponents
+    listAllComponents,
+    updateActived
 }

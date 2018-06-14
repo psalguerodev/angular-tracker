@@ -160,6 +160,8 @@ const updateComponent = (request,response,next) => {
     const body = request.body
     const id   = request.params.id
 
+    console.log(body)
+
     if( !body.name || !body.pathfile || !body.extension || !id || isNaN(id) ) {
         return response.status(400).json({
             ok: false ,
@@ -191,6 +193,44 @@ const updateComponent = (request,response,next) => {
 
 }
 
+
+const updateActivated = (request,response,next) => {
+    const body = request.body
+    const id   = request.params.id
+
+    console.log(body)
+
+    if( !id || isNaN(id) ) {
+        return response.status(400).json({
+            ok: false ,
+            message: 'Todos los campos son obligatorios'
+        })
+    }
+
+    if( !body.user ){
+        body.user = ''
+    }
+
+    Component.updateActived(id,body.user)
+    .then(res => {
+
+        response.status(200).json({
+            ok: true,
+            message: 'Se ha actualizado correctamente',
+            id: id ,
+            body: body
+        })
+
+
+    }, err => {
+        response.status(500).json({
+            ok : false ,
+            message : 'Ha ocurrido un error.' ,
+            error : err
+        })
+    })
+
+}
 
 const deleteComponent = ( request , response , nextFunction ) => {
     const id = request.params.id
@@ -231,5 +271,6 @@ module.exports = {
     deleteComponent,
     getListAllComponents,
     getComponentByCode,
-    ListAllComponents
+    ListAllComponents,
+    updateActivated
 }

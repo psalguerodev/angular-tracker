@@ -32,7 +32,7 @@ export class ComponentService {
   }
 
   public getComponentById(code) {
-    let url = `${CONF.ENDPOINT}component/${code}`
+    let url = `${CONF.ENDPOINT}component/get/one/${code}`
     return this.http.get(url) 
   }
 
@@ -50,6 +50,11 @@ export class ComponentService {
     component['pathfile'] = component['filepath']
     let url = `${CONF.ENDPOINT}component/${component.code}`
     return this.http.put(url,component,{})
+  }
+
+  public updateComponentActive(id,value) {
+    let url = `${CONF.ENDPOINT}component/active/${id}`
+    return this.http.put(url,value)
   }
 
   public addDetailComponent(detailcomponent){

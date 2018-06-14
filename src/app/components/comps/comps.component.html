@@ -24,8 +24,9 @@
 </div>
 
 <div class="row animated fadeIn top-50">
-  <div class="col-md-4 col-sm-6 col-xs-6 animated fadeInDown" *ngFor="let c of components;let i = index;">
-    <div class="card-comp">
+  <div class="col-md-4 col-sm-6 col-xs-6 animated fadeInUp" *ngFor="let c of components;let i = index;">
+    <!-- <small>{{c|json}}</small> -->
+    <div class="card-comp" [ngStyle]="{'border-left': (c.current_user != '') ? '4px solid rgb(221, 0, 49)' : ''}">
       <div class="row align-middle">
         <div class="col-md-1 col-sm-1" style="margin:10px 4px">
           <h6 class="text-center icon-type" 

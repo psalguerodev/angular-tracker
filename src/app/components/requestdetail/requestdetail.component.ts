@@ -24,6 +24,8 @@ export class RequestdetailComponent implements OnInit {
   public detailselect:any = null
 
   public find:string = ''
+  public status_affected = ['Análisis','Desarrollo','Certificación']
+  public componentSelectPath:string = ''
 
   constructor(
     private router:Router,
@@ -43,7 +45,6 @@ export class RequestdetailComponent implements OnInit {
     this.activeRoute.params.subscribe(params=>{
       if(params['id'] != undefined ){
         this.idrequest = params['id']
-        console.log( this.request )
         this.getRequestByCode(this.idrequest)
       }
     })
@@ -52,7 +53,6 @@ export class RequestdetailComponent implements OnInit {
   getRequestByCode(id){
     this._requestService.getRequestByCode(id).subscribe(res=>{
       if(res){
-        console.log(res)
         this.request = res['body']
         this.getRequestDetail()
       }
@@ -84,7 +84,12 @@ export class RequestdetailComponent implements OnInit {
   }
 
   onchangeSelect(evento){
-    this.componentSelect = this.components.find(p=> p['name'] == evento ) || {}
+    this.componentSelect = this.components.find(p=> {
+      if( p['name'] == evento ){
+        this.componentSelectPath = p['pathfile']
+        return p
+      }
+    }) 
   }
 
   processForm(formvalue){
@@ -92,15 +97,30 @@ export class RequestdetailComponent implements OnInit {
     formvalue['user'] = this._loginService.getUser()['nickname'] || 'ADMIN'
     formvalue['component'] = this.componentSelect['code']
     
-    console.log(formvalue)
     if( this.iddetail == null ){ 
       //guardar
       this._componentService.addDetailComponent(formvalue).subscribe(res=>{
         if(res){
-          this.getRequestDetail()
-          this.detail = {component:''}
-          this.componentSelect = {pathfile:''}
-          this.showform = false
+          //Verificar estado
+          if(this.status_affected.indexOf(this.request['status']) > 0 ){
+            this._componentService.updateComponentActive(this.componentSelect['code'], formvalue ).subscribe(res=>{
+
+              this.getRequestDetail()
+              this.detail = {component:''}
+              this.iddetail = null
+              this.componentSelect = {pathfile:''}
+              this.showform = false
+  
+            }, err => console.error("ERROR: ", err))
+          }else {
+              console.log( 'aaa' )
+              this.getRequestDetail()
+              this.detail = {component:''}
+              this.iddetail = null
+              this.componentSelect = {pathfile:''}
+              this.showform = false
+          }
+          
         }
       },err =>{
         console.log( 'Error. ' ,err )  
@@ -119,12 +139,19 @@ export class RequestdetailComponent implements OnInit {
   }
 
   deleteDetail(detail){
+    let idcomponent = this.components.find(p => p['name'] == detail['name'])['code']
     if(confirm(`¿Está seguro de eliminar el componente: ${detail['name']}?`)) {
-      this._requestService.deteleRequestDetailByCode(detail).subscribe(res=>{
-        if(res){
-          this.getRequestDetail()
-        }
-      },err => console.log( 'Err',err ))
+      
+      this._componentService.updateComponentActive(idcomponent, {user:''}).subscribe(res=>{
+
+        this._requestService.deteleRequestDetailByCode(detail).subscribe(res=>{
+          if(res){
+            this.getRequestDetail()
+          }
+        },err => console.log( 'Err',err ))
+
+      },err1 => console.log( err1 ) )
+      
     }
   }
 
