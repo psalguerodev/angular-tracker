@@ -77,6 +77,7 @@ export class RequestdetailComponent implements OnInit {
       if(res) {
         console.log(res)
         this.components = res['body'] || []
+        this.components = this.components.sort()
       }
     },err => {
       console.log(err)

@@ -64,16 +64,14 @@ export class RequestformComponent implements OnInit {
           if(formvalue['status'] == 'Producción'){
             this._requestService.freeComponentByRequest(this.request['code'])
               .subscribe(result=>{
-                
                 console.log(result)
-
               },err=>{
                 console.log(err)
               })
           }
           
           // console.log(res)
-          // this.router.navigate(['request'])
+          this.router.navigate(['request'])
         }
       },err => {
         console.error(err)

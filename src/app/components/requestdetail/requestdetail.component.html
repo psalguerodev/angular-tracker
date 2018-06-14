@@ -3,7 +3,7 @@
       <a href="$" class="btn btn-primary btn-sm float-right">{{ request?.status }}</a>
       <h2 class="text-secondary">Requerimiento</h2>
       <h5 class="text-secondary float-left"><a [routerLink]="['/request',idrequest]">{{  request?.identity }}</a> / {{ request?.title }}</h5>
-      <small class="text-secondary float-right">Creado: {{ request?.created | date}} </small><br>
+      <small class="text-secondary float-right">Creado: {{ request?.created | date:'d/M/yyyy, h:mm a' }} </small><br>
       <small class="text-secondary float-right">Teach Lead: <strong>{{ request?.teach }}</strong></small>
     </div>
 </div>
@@ -116,7 +116,7 @@
                 </div>
             </div>
             <div class="form-group text-secondary" style="font-size: 0.8rem">
-              <label class="float-right">{{ detailselect.created | date:'M d, h:mm a' }}</label>
+              <label class="float-right">{{ detailselect.created | date:'d/M/yyyy, h:mm a' }}</label>
               <label for=""><strong>Detalle</strong></label>
               <p>{{ detailselect.details }}</p>
             </div>

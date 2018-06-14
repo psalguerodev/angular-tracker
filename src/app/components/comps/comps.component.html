@@ -42,7 +42,7 @@
         </div>
         <div class="col-md-10 col-sm-10" style="margin-left: 15px;">
           <small class="float-right text-secondary" (click)="deleteComponent(c)">X</small>
-          <small (click)="selectComponent(c)" ><strong class="text-primary">{{c.name}}</strong></small><br>
+          <small (click)="selectComponent(c)" ><strong class="text-primary" [title]="c.name">{{c.name | slice:0:43}}</strong></small><br>
           <small (click)="selectComponent(c)"><span class="text-secondary" [title]="c.pathfile">{{c.pathfile | slice:0:43}}</span></small>
         </div>
       </div>
