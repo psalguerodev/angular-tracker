@@ -50,7 +50,11 @@
 
 .dropdown-item:hover{
     background: #3078de;
-    color:white;
+    color:white !important;
+}
+
+.touched{
+    background:rgba(0, 10, 255, 0.04);;
 }
 
 ::-webkit-scrollbar  {

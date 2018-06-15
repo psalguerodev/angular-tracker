@@ -13,8 +13,6 @@ import { HomeComponent } from './components/home/home.component';
 import { RequestdetailComponent } from './components/requestdetail/requestdetail.component';
 import { FindComponent } from './components/find/find.component';
 import { TypefileComponent } from './components/typefile/typefile.component';
-import { Ng2TableModule } from 'ngx-datatable';
-import { PaginationModule } from 'ngx-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { CompformComponent } from './components/compform/compform.component';
 import { RequestformComponent } from './components/requestform/requestform.component';
@@ -53,9 +51,7 @@ import { AdminGuard } from "src/app/guards/admin.guard";
     FormsModule,
     HttpClientModule,
     APP_ROUTES,
-    ChartsModule,
-    PaginationModule.forRoot(),
-    Ng2TableModule
+    ChartsModule
   ],
   providers: [
     ComponentService,

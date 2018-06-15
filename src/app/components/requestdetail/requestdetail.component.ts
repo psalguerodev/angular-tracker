@@ -4,6 +4,7 @@ import { ComponentService } from './../../services/components/component.service'
 import { RequestService } from './../../services/request/request.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { TypefileService } from "src/app/services/typefile/typefile.service";
 
 @Component({
   selector: 'app-requestdetail',
@@ -14,6 +15,7 @@ export class RequestdetailComponent implements OnInit {
 
   public request:any ={} 
   public components:any = []
+  public allcomponent:any = []
   public componentSelect:any = {}
   public idrequest:any = null
   public showform: boolean = false
@@ -21,21 +23,28 @@ export class RequestdetailComponent implements OnInit {
   public detail:any = {component:''}
   public iddetail:any = null
   public details:any = []
+  public detailsall:any = []
   public detailselect:any = null
 
   public find:string = ''
   public status_affected = ['Análisis','Desarrollo','Certificación']
   public componentSelectPath:string = ''
 
+  public typefiles:any =[]
+  public extension:any = ''
+  public typefileselected:any = {}
+
   constructor(
     private router:Router,
     private activeRoute: ActivatedRoute,
     private _requestService:RequestService,
     private _componentService:ComponentService,
-    private _loginService:LoginService
+    private _loginService:LoginService,
+    private _typefileService:TypefileService
   ) { }
 
   ngOnInit() {
+    this.getTypefiles()
     this.getComponents()
     this.initPage()
   }
@@ -61,14 +70,37 @@ export class RequestdetailComponent implements OnInit {
     })
   }
 
+  onchangeSelectExtension(evento){
+    if(evento==""){
+      this.typefileselected = {}
+      return
+    }
+
+    this.typefileselected = this.typefiles.find(p=> p['shortname'] === evento )
+    this.components = this.allcomponent.filter(p => p['extension'] === evento )
+    // console.log(this.allcomponent)
+  }
+
   getRequestDetail(){
     this._requestService.getRequestDetailByCode(this.request).subscribe(result => {
       if(result){
         console.log(result)
         this.details = result['body']
+        this.detailsall = this.details
       }
     },err => {
       console.log( 'Error.', err )
+    })
+  }
+
+  getTypefiles(){
+    this._typefileService.listAllTypefile().subscribe(data => {
+      if(data){
+        console.log(data)
+        this.typefiles = data['body']
+      } 
+    },err => {
+      console.log('Error: ' , err )
     })
   }
 
@@ -76,8 +108,8 @@ export class RequestdetailComponent implements OnInit {
     this._componentService.listallComponent().subscribe(res=>{
       if(res) {
         console.log(res)
-        this.components = res['body'] || []
-        this.components = this.components.sort()
+        this.allcomponent = res['body'] || []
+        this.allcomponent = this.allcomponent.sort()
       }
     },err => {
       console.log(err)
@@ -85,6 +117,10 @@ export class RequestdetailComponent implements OnInit {
   }
 
   onchangeSelect(evento){
+    if(evento == ""){
+      this.componentSelect = {pathfile:''}
+      return
+    }
     this.componentSelect = this.components.find(p=> {
       if( p['name'] == evento ){
         this.componentSelectPath = p['pathfile']
@@ -157,7 +193,13 @@ export class RequestdetailComponent implements OnInit {
   }
 
   findComponent(evento){
-    console.log( evento )
+    if(evento==""){
+      let all = this.detailsall
+      this.details =  all
+      return
+    }
+    this.details = this.detailsall
+                   .filter(p => p['name'].toLowerCase().startsWith(evento.toLowerCase()) )
   }
 
   select(d){
@@ -165,6 +207,8 @@ export class RequestdetailComponent implements OnInit {
     this.detailselect=d;
     this.detail = this.detailselect
     this.detail['component'] = d['name']
+    this.extension = this.detailselect.extension
+    this.onchangeSelectExtension(this.detailselect.extension)
     this.onchangeSelect(d['name'])
   }
 

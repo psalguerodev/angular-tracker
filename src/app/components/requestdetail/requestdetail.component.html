@@ -33,23 +33,61 @@
               <div class="card">
                 <div class="card-body">
                   <form name="theForm" #theForm="ngForm" (ngSubmit)="processForm(theForm.value)">
+                    
+                    <div class="form-group">
+                      <label>Extensión</label>
+                      <select name="extension" 
+                              required
+                              [(ngModel)]="extension"
+                              (ngModelChange)="onchangeSelectExtension($event)"
+                              class="form-control form-control-sm" >
+                        <option value="">Seleccionar</option>
+                        <option [value]="t.shortname" name="typefile"                  
+                               *ngFor="let t of typefiles">
+                          {{t.shortname}}
+                        </option>
+                      </select>
+                      <small class="text-secondary">{{typefileselected?.description}}</small>
+                    </div>
+
                     <div class="form-group">
                       <label for="">Componente</label>
-                      <select (ngModelChange)="onchangeSelect($event)" name="component" [(ngModel)]="detail.component" class="form-control form-control-sm" required>
+                      <select (ngModelChange)="onchangeSelect($event)"
+                              [disabled]="typefileselected.description == undefined"
+                              name="component" 
+                              [(ngModel)]="detail.component" 
+                              class="form-control form-control-sm" 
+                              required>
                         <option value="">Seleccionar</option>
                         <option [value]="c.name" *ngFor="let c of components">{{c.name}}</option>
                       </select>
-                      <small class="text-secondary">{{componentSelect.pathfile}}</small>
+                      <small class="text-secondary">{{componentSelect?.pathfile}}</small>
                     </div>
+
                     <div class="form-group">
-                      <label for="">Titulo</label>
-                      <input type="text" name="title" [(ngModel)]="detail.title" class="form-control form-control-sm"  autocomplete="off" required placeholder="Titulo del cambio en el componente">
+                      <label for="">Título</label>
+                      <input type="text"
+                             [disabled]="typefileselected.description == undefined"
+                             name="title" 
+                             [(ngModel)]="detail.title" 
+                             class="form-control form-control-sm"  
+                             autocomplete="off" 
+                             required 
+                             placeholder="Titulo del cambio en el componente">
                     </div>
+
                     <div class="form-group">
                       <label for="">Detalle</label>
-                      <textarea required name="details" [(ngModel)]="detail.details" class="form-control form-control-sm" placeholder="Detalle de los cambios"></textarea>
-                    </div>            
-                    <button type="button" class="btn btn-link float-right btn-sm" (click)="detail={component:''};componentSelect = {pathfile:''}">Limpiar</button>
+                      <textarea required 
+                                [disabled]="typefileselected.description == undefined"
+                                name="details" 
+                                [(ngModel)]="detail.details" 
+                                class="form-control form-control-sm" 
+                                placeholder="Detalle de los cambios"></textarea>
+                    </div> 
+
+                    <button type="button" class="btn btn-link float-right btn-sm" 
+                            (click)="detail={component:''};componentSelect = {pathfile:''}">Limpiar</button>
                     <button [disabled]="theForm.invalid" 
                       type="submit" class="btn btn-primary btn-sm float-right">
                       Guardar
