@@ -329,6 +329,36 @@ const findComponentByName = (request,response,next) => {
 
 }
 
+const getHistoryComponentByCode = ( request , response , nextFunction ) => {
+    const code = request.params.code || 0
+
+    if(code==0 || !code || isNaN(code)){
+        return response.status(400).json({
+            ok:false,
+            message:'El ID del componente es obligatoria'
+        })
+    }
+
+    Component.getHistoryComponentByCode(code).then(history => {
+        if(history){
+            return response.status(200).json({
+                ok:true,
+                message:'Historial del componente ' + code,
+                id:code,
+                body:history
+            })
+        }
+    })
+    .catch(err => {
+        return response.status(500).json({
+            ok:false,
+            message:'Error al procesar historial',
+            error:err
+        })
+    })
+
+}
+
 module.exports = {
     addComponent,
     updateComponent,
@@ -338,5 +368,6 @@ module.exports = {
     ListAllComponents,
     updateActivated,
     updateComponentsByRequest,
-    findComponentByName
+    findComponentByName,
+    getHistoryComponentByCode
 }

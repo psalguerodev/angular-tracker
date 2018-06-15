@@ -66,4 +66,8 @@ export class ComponentService {
     return this.http.get(`${CONF.ENDPOINT}component/find/comp/${name.trim()}`)
   }
 
+  public getHistoryComponent(code:number){
+    return this.http.get(`${CONF.ENDPOINT}component/history/comp/${code}`)
+  }
+
 }

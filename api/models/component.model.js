@@ -257,6 +257,29 @@ const findComponentByText = (name) => {
     })
 }
 
+const getHistoryComponentByCode = (code) => {
+    return new Promise((resolve,reject) => {
+        let db = database.connection()
+        if(null!=db){
+            let sql = `select c.code,c.name,c.pathfile,c.extension,cd.title,cd.details,cd.user,r.identity,r.status, r.title as title_r , u.name , u.lastname , cd.created , cd.updated
+            from components c
+            inner join request r on r.code = cd.request
+            inner join component_details cd on cd.component = c.code
+            inner join users u on cd.user = u.nickname 
+            where c.code = ?`
+            db.all(sql,[code],function(err,rows){
+                if(err){
+                    console.log(err.message)
+                    reject(err)
+                }
+
+                db.close()
+                resolve(rows)
+            })
+        }
+    })
+}
+
 module.exports = {
     addComponent,
     updateComponent,
@@ -267,5 +290,6 @@ module.exports = {
     listAllComponents,
     updateActived,
     updateActivedByRequest,
-    findComponentByText
+    findComponentByText,
+    getHistoryComponentByCode
 }

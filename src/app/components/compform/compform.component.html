@@ -43,23 +43,48 @@
   <div class="col-md-5">
     
     <div class="card-comp" *ngIf="typefileselect != null && component.extension != ''">
-        <div class="row align-middle">
-          <div class="col-md-1 col-sm-1" style="margin:10px 4px">
-            <h6 class="text-center text-secondary icon-type">
-              {{typefileselect.shortname}}
-            </h6>
-          </div>
-          <div class="col-md-10 col-sm-10" style="margin-left: 15px;">
-            <small>
-              <span class="text-secondary">
-                  {{typefileselect.longname}}
-              </span>
-            </small><br>
-            <small>
-                {{typefileselect.description}}
-            </small>
-          </div>
+      <div class="row align-middle">
+        <div class="col-md-1 col-sm-1" style="margin:10px 4px">
+          <h6 class="text-center text-secondary icon-type">
+            {{typefileselect.shortname}}
+          </h6>
+        </div>
+        <div class="col-md-10 col-sm-10" style="margin-left: 15px;">
+          <small>
+            <span class="text-secondary">
+                {{typefileselect.longname}}
+            </span>
+          </small><br>
+          <small>
+              {{typefileselect.description}}
+          </small>
         </div>
       </div>
+    </div>
+
+      <div class="card" *ngIf="history.length > 0">
+        <div class="card-body">
+          <h5 class="text-secondary card-title">Historial del componente</h5>
+          
+          <div class="container-history" style="overflow-x: hidden; overflow-y: scroll;max-height: 350px;">
+              <div class="card-comp text-secondary" style="padding: 10px;" *ngFor="let h of history">
+                <div class="row">
+                  <div class="col-md-12">
+                    <span class="text-primary">{{h?.identity}}</span>
+                    <span class="float-right">{{ h?.title_r}}</span><br>
+                    <small><strong>Detalle:</strong></small><br>
+                    <small>{{h?.title}}</small><br>
+                    <small><strong>{{h?.user}} - {{h?.name}} {{h?.lastname }}</strong></small>
+                    <small class="float-right">{{ h?.created | date :'d/M/yy hh:mm a' }}</small>
+                </div>
+                </div>
+              </div>
+          </div>
+
+        </div>
+      </div>
+
+      
+
   </div>
 </div>

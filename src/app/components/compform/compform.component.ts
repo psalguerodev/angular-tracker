@@ -18,7 +18,7 @@ export class CompformComponent implements OnInit {
   public idcomponent :number = null
   public typefiles:any = []
   public typefileselect:any = {}
-
+  public history:any = []
 
   constructor(
     private _compService : ComponentService,
@@ -46,6 +46,7 @@ export class CompformComponent implements OnInit {
             this.component['filepath'] = data['component']['pathfile']
             this.onchangeSelect(this.component['extension'])
             console.log(this.component)
+            this.getHistory()
           }
         },err=> {
           console.log('Error. ',err)
@@ -54,6 +55,19 @@ export class CompformComponent implements OnInit {
         this.idcomponent = 0
       }
     })
+  }
+
+  getHistory(){
+    if(this.idcomponent != null ){
+      this._compService.getHistoryComponent(this.idcomponent).subscribe(his=>{
+        if(his){
+          this.history = his['body']
+          console.log(this.history)
+        }
+      },err => {
+        console.log('Error. ',err)
+      })
+    }
   }
 
   getListTypefile() {

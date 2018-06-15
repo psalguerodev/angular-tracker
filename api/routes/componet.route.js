@@ -10,6 +10,7 @@ app.put('/:id' , componentctrl.updateComponent )
 app.put('/active/:id', componentctrl.updateActivated)
 app.get('/free/comps/:request',componentctrl.updateComponentsByRequest)
 app.get('/find/comp/:name',componentctrl.findComponentByName)
+app.get('/history/comp/:code',componentctrl.getHistoryComponentByCode)
 app.delete('/:id', componentctrl.deleteComponent)
 
 module.exports = app

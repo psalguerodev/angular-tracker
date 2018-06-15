@@ -92,6 +92,17 @@ const deleteRequest = (id) => {
                     reject(error)
                 }
 
+                let sql = 'delete from component_details where request = ?'
+
+                db.run(sql,[id],function (err) {
+                    if(err){
+                        console.log(err.message)
+                        reject(errr)
+                    }
+                    console.log('Detalle eliminado')
+                })
+
+
                 db.close()
                 resolve(true)
             })
