@@ -227,11 +227,8 @@ const updateActivedByRequest = (requestid) => {
                         })
                     }
                     db.close()
-                    resolve((affected=1)?true:false)
+                    resolve((affected==1)?true:false)
                 }
-
-                db.close()
-                resolve(false)
 
             })
         }
