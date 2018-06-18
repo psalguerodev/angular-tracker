@@ -85,12 +85,25 @@ export class RequestdetailComponent implements OnInit {
     this._requestService.getRequestDetailByCode(this.request).subscribe(result => {
       if(result){
         console.log(result)
-        this.details = result['body']
+        this.details = this.noRepeatData(result['body'],'component')
         this.detailsall = this.details
+        // console.log(this.noRepeatData(this.details,'component'))
       }
     },err => {
       console.log( 'Error.', err )
     })
+  }
+
+  noRepeatData(data,field1){
+    let clean_data = []
+
+    data.forEach(element => {
+      if(!clean_data.find(p => p[field1] === element[field1])){
+        clean_data.push(element)
+      }
+    });
+    
+    return clean_data
   }
 
   getTypefiles(){
@@ -203,13 +216,13 @@ export class RequestdetailComponent implements OnInit {
   }
 
   select(d){
-    this.iddetail = d['code']
     this.detailselect=d;
-    this.detail = this.detailselect
-    this.detail['component'] = d['name']
-    this.extension = this.detailselect.extension
-    this.onchangeSelectExtension(this.detailselect.extension)
-    this.onchangeSelect(d['name'])
+    // this.iddetail = d['code']
+    // this.detail = this.detailselect
+    // this.detail['component'] = d['name']
+    // this.extension = this.detailselect.extension
+    // this.onchangeSelectExtension(this.detailselect.extension)
+    // this.onchangeSelect(d['name'])
   }
 
 }

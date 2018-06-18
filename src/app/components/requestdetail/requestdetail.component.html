@@ -121,7 +121,7 @@
                         <strong class="text-primary">{{d.name}}</strong>
                       </small>
                       <br>
-                      <small ><span class="text-secondary">{{d.title}}</span></small>
+                      <small ><span class="text-secondary">{{d.pathfile}}</span></small>
                     </div>
                   </div>
               </div>
@@ -132,13 +132,13 @@
   </div>
   <div class="col-md-6" *ngIf="detailselect != null">
     <!-- <small>{{ detailselect | json }}</small> -->
-    <div class="card animated fadeInRight">
+    <div class="card animated bounceInRight">
         <div class="card-body">
-            <small class="float-right text-secondary" style="cursor: pointer;" (click)="detailselect = null; iddetail=null;detail={component:''};componentSelect = {pathfile:''}">X</small>
-            <h6 class="text-secondary">{{detailselect.title}} 
-              <span style="cursor: pointer;" (click)="showform=true">✎</span>
-            </h6>
-            <div class="card-comp">
+            <h6 class="text-secondary float-left">Historia del componente seleccionado</h6>
+            <small class="float-right text-secondary" style="cursor: pointer;" 
+                  (click)="detailselect = null; iddetail=null;detail={component:''};componentSelect = {pathfile:''}">X</small> <br>
+            
+            <div class="card-comp" style="background:rgba(0, 10, 255, 0.04);">
                 <div class="row align-middle">
                   <div class="col-md-1 col-sm-1" style="margin:10px 4px">
                     <h6 class="text-center text-secondary icon-type"
@@ -153,14 +153,25 @@
                   </div>
                 </div>
             </div>
-            <div class="form-group text-secondary" style="font-size: 0.8rem">
-              <label class="float-right">{{ detailselect.created | date:'d/M/yyyy, h:mm a' }}</label>
-              <label for=""><strong>Detalle</strong></label>
-              <p>{{ detailselect.details }}</p>
-            </div>
-            <div class="text-secondary" style="font-size: 0.8rem">
-                <p class="float-left"><strong>Usuario</strong> {{ detailselect.user }}</p>
-                <p class="float-right">{{detailselect.name_user}} {{detailselect?.lastname_user}}</p>
+
+            <!-- Historial del componente seleccionado -->
+            <div class="card">
+              <div class="card-body">
+                <h6 class="text-primary"> Detalle 1
+                  <span style="cursor: pointer;" (click)="showform=true">✎</span>
+                </h6>
+                
+                <div class="form-group text-secondary" style="font-size: 0.8rem">
+                  <!-- {{ detailselect.created | date:'d/M/yyyy, h:mm a' }} -->
+                  <label class="float-right"> 12/12/1995 </label>
+                  <label for=""><strong>Detalle</strong></label>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor, a.</p>
+                </div>
+                <div class="text-secondary" style="font-size: 0.8rem">
+                    <p class="float-left"><strong>Usuario</strong> xt7226 </p>
+                    <p class="float-right">Patrick Salguero Avalos</p>
+                </div>
+              </div>
             </div>
               
         </div>

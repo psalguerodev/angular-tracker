@@ -153,7 +153,7 @@ const getRequestDetailByCode = (code) => {
     return new Promise((resolve,reject) => {
         let db = database.connection()
         if(null!=db){
-            let sql_detail = `select c.code,cc.extension,cc.name,cc.pathfile,c.title,c.details, u.name as name_user , 
+            let sql_detail = `select distinct c.component,c.code,cc.extension,cc.name,cc.pathfile,c.title,c.details, u.name as name_user , 
             u.lastname as lastname_user , c.user,c.created,c.updated
             from component_details c
             inner join components cc on c.component = cc.code 
