@@ -105,23 +105,24 @@
                   (ngModelChange)="findComponent($event)" class="form-control form-control-sm" placeholder="Buscar componente">
           </div>
           
-          <div class="cards-container" style="max-height: 350px; overflow-y: scroll;overflow-x: hidden">
-              <div class="card-comp" *ngFor="let d of details" style="width: 97%">
+          <div class="cards-container" style="max-height: 450px; overflow-y: scroll;overflow-x: hidden">
+            <div class="card-comp" *ngFor="let d of details" style="width: 97%">
+                  <!-- <small>{{d|json}}</small> -->
                   <div class="row align-middle">
                     <div class="col-md-1 col-sm-1" style="margin:10px 4px">
-                      <h6 class="text-center text-secondary icon-type"
+                      <h6 class="text-center text-secondary icon-type no-seleccionable"
                       (click)="select(d)"
                       [ngStyle]="{ 'font-size' : d.extension.length >= 3 ? '12px' : '13px' }">
                         {{d.extension}}
                       </h6>
                     </div>
                     <div class="col-md-10 col-sm-10" style="margin-left: 15px;">
-                      <small class="float-right text-secondary" (click)="deleteDetail(d)">X</small>
+                      <small class="float-right text-secondary no-seleccionable" (click)="deleteDetailComponent(d)">X</small>
                       <small (click)="select(d)">
                         <strong class="text-primary">{{d.name}}</strong>
                       </small>
                       <br>
-                      <small ><span class="text-secondary">{{d.pathfile}}</span></small>
+                      <small (click)="select(d)" ><span class="text-secondary">{{d.pathfile}}</span></small>
                     </div>
                   </div>
               </div>
@@ -130,7 +131,7 @@
       </div>
     </div><br><br>
   </div>
-  <div class="col-md-6" *ngIf="detailselect != null">
+  <div class="col-md-6 no-seleccionable" *ngIf="detailselect != null">
     <!-- <small>{{ detailselect | json }}</small> -->
     <div class="card animated bounceInRight">
         <div class="card-body">
@@ -141,7 +142,7 @@
             <div class="card-comp" style="background:rgba(0, 10, 255, 0.04);">
                 <div class="row align-middle">
                   <div class="col-md-1 col-sm-1" style="margin:10px 4px">
-                    <h6 class="text-center text-secondary icon-type"
+                    <h6 class="text-center text-secondary icon-type no-seleccionable"
                     [ngStyle]="{ 'font-size' : detailselect.extension.length >= 3 ? '12px' : '13px' }">
                       {{detailselect.extension}}
                     </h6>
@@ -155,23 +156,29 @@
             </div>
 
             <!-- Historial del componente seleccionado -->
-            <div class="card">
-              <div class="card-body">
-                <h6 class="text-primary"> Detalle 1
-                  <span style="cursor: pointer;" (click)="showform=true">✎</span>
-                </h6>
-                
-                <div class="form-group text-secondary" style="font-size: 0.8rem">
-                  <!-- {{ detailselect.created | date:'d/M/yyyy, h:mm a' }} -->
-                  <label class="float-right"> 12/12/1995 </label>
-                  <label for=""><strong>Detalle</strong></label>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor, a.</p>
+            <div class="history-container" style="overflow-y:scroll;overflow-x: hidden; max-height: 450px">
+                <div class="card animated fadeIn" style="width: 98%;margin-bottom: 10px" *ngFor="let h of historydetailselect">
+                  <div class="card-body">
+                    <small class="text-secondary float-right"
+                           (click)="deleteDetail(h)"
+                           style="cursor: pointer;">X</small>
+                    <h6 class="text-primary"> {{h?.title}}
+                      <span title="Actualizar detalle"
+                          style="cursor: pointer;font-size: 20px" (click)="selectHistory(h)">✎</span>
+                    </h6>
+                    
+                    <div class="form-group text-secondary" style="font-size: 0.8rem">
+                      <!-- {{ detailselect.created | date:'d/M/yyyy, h:mm a' }} -->
+                      <label class="float-right"> {{ h?.created | date:'d/M/yyyy, h:mm a' }} </label>
+                      <label for=""><strong>Detalle</strong></label>
+                      <p>{{h?.details}}</p>
+                    </div>
+                    <div class="text-secondary" style="font-size: 0.8rem">
+                        <p class="float-left"><strong>Usuario</strong> {{h?.user}} </p>
+                        <p class="float-right">{{h?.name_user}} {{h?.lastname_user }}</p>
+                    </div>
+                  </div>
                 </div>
-                <div class="text-secondary" style="font-size: 0.8rem">
-                    <p class="float-left"><strong>Usuario</strong> xt7226 </p>
-                    <p class="float-right">Patrick Salguero Avalos</p>
-                </div>
-              </div>
             </div>
               
         </div>

@@ -163,6 +163,7 @@ const getDetailByCode = (id) => {
     })
 }
 
+//	Verificar que sea posible verificar dicho componente si el valor es vacio
 const updateActived = (id,value) => {
     return new Promise((resolve,reject) => {
         let db = database.connection()
@@ -277,6 +278,27 @@ const getHistoryComponentByCode = (code) => {
     })
 }
 
+const getHistoryComponentByCodeAndRequest = (request,component) => {
+    return new Promise((resolve,reject) => {
+        let db = database.connection()
+        if(null!=db){
+            let sql = `select cd.code,cd.title,cd.details,cd.request,cd.user,cd.created,cd.updated,u.name name_user , u.lastname lastname_user
+                      from component_details cd
+                      inner join users u on u.nickname = cd.user
+                      where request=? and component=?`
+            db.all(sql,[request,component],function(err,rows){
+                if(err){
+                    console.log(err.message)
+                    reject(err)
+                }
+
+                db.close()
+                resolve(rows)
+            })
+        }
+    })
+}
+
 module.exports = {
     addComponent,
     updateComponent,
@@ -288,5 +310,6 @@ module.exports = {
     updateActived,
     updateActivedByRequest,
     findComponentByText,
-    getHistoryComponentByCode
+    getHistoryComponentByCode,
+    getHistoryComponentByCodeAndRequest
 }

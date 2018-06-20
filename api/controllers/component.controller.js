@@ -359,6 +359,39 @@ const getHistoryComponentByCode = ( request , response , nextFunction ) => {
 
 }
 
+const getHistoryByRequestAndComponent = ( request , response , nextFunction ) => {
+    let req = request.params.request || null
+    let comp = request.params.component || null
+
+    if(!req || !comp){
+        return response.status(400).json({
+            dok:false,
+            message:'El requerimiento y el componente es obligatorio'
+        })
+    }
+
+    Component.getHistoryComponentByCodeAndRequest(req,comp)
+    .then(rows => {
+        if(rows){
+            return response.status(200).json({
+                ok:false,
+                request: parseInt(req,10),
+                component:parseInt(comp,10),
+                message:'Se ha listado el historial del componente',
+                body:rows
+            })
+        }
+    })
+    .catch(err => {
+        return response.status(500).json({
+            ok:false,
+            message:'Ha ocurrido un error al buscar historia',
+            error:err
+        })
+    })
+
+}
+
 module.exports = {
     addComponent,
     updateComponent,
@@ -369,5 +402,6 @@ module.exports = {
     updateActivated,
     updateComponentsByRequest,
     findComponentByName,
-    getHistoryComponentByCode
+    getHistoryComponentByCode,
+    getHistoryByRequestAndComponent
 }

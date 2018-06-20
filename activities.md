@@ -1,4 +1,3 @@
 # Actividades
 
-    1. Falta actualizar los componentes en el request detail
-    2. Falta actualizar cuando se actualiza un requerimiento
+    1. Falta eliminar componentes y todos sus detalles    

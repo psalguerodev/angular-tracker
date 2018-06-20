@@ -42,6 +42,10 @@ export class RequestService {
     return this.http.delete(`${CONF.ENDPOINT}compdetail/${detail['code']}`)
   }
 
+  deleteRequestDetailByComponent(component,request) {
+    return this.http.delete(`${CONF.ENDPOINT}compdetail/${component}/${request}`)
+  }
+
   updateRequestDetail(detail){
     return this.http.put(`${CONF.ENDPOINT}compdetail/${detail['code']}`,detail)
   }
@@ -49,4 +53,9 @@ export class RequestService {
   freeComponentByRequest(idrequest){
     return this.http.get(`${CONF.ENDPOINT}component/free/comps/${idrequest}`)
   }
+
+  getHistoryComponentByRequest(component,request){
+    return this.http.post(`${CONF.ENDPOINT}component/history/${request}/${component}`,{})
+  }
+
 }

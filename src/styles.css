@@ -93,3 +93,9 @@ body,html{
 .border-primary-card {
     border-left: 4px solid #3078de;
 }
+.no-seleccionable {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none; 
+}

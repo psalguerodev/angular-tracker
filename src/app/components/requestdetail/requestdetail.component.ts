@@ -25,6 +25,7 @@ export class RequestdetailComponent implements OnInit {
   public details:any = []
   public detailsall:any = []
   public detailselect:any = null
+  public historydetailselect:any = []
 
   public find:string = ''
   public status_affected = ['Análisis','Desarrollo','Certificación']
@@ -87,7 +88,6 @@ export class RequestdetailComponent implements OnInit {
         console.log(result)
         this.details = this.noRepeatData(result['body'],'component')
         this.detailsall = this.details
-        // console.log(this.noRepeatData(this.details,'component'))
       }
     },err => {
       console.log( 'Error.', err )
@@ -154,7 +154,6 @@ export class RequestdetailComponent implements OnInit {
           //Verificar estado
           if(this.status_affected.indexOf(this.request['status']) > 0 ){
             this._componentService.updateComponentActive(this.componentSelect['code'], formvalue ).subscribe(res=>{
-
               this.getRequestDetail()
               this.detail = {component:''}
               this.iddetail = null
@@ -163,7 +162,6 @@ export class RequestdetailComponent implements OnInit {
   
             }, err => console.error("ERROR: ", err))
           }else {
-              console.log( 'aaa' )
               this.getRequestDetail()
               this.detail = {component:''}
               this.iddetail = null
@@ -180,6 +178,9 @@ export class RequestdetailComponent implements OnInit {
       console.log( 'Actualizar' )
       formvalue['code'] = this.iddetail
       this._requestService.updateRequestDetail(formvalue).subscribe(res=>{
+        //Seleccionar nuevamente
+        this.select(this.detailselect)
+
         this.getRequestDetail()
         this.detail = {component:''}
         this.showform =false
@@ -189,20 +190,21 @@ export class RequestdetailComponent implements OnInit {
   }
 
   deleteDetail(detail){
-    let idcomponent = this.components.find(p => p['name'] == detail['name'])['code']
-    if(confirm(`¿Está seguro de eliminar el componente: ${detail['name']}?`)) {
+    
+    let idcomponent = this.allcomponent.find(p => p['name'] == this.detailselect['name'])['code'] || null
+    if(confirm(`¿Está seguro de eliminar el componente: ${this.detailselect['name']}?`)) {
       
       this._componentService.updateComponentActive(idcomponent, {user:''}).subscribe(res=>{
 
         this._requestService.deteleRequestDetailByCode(detail).subscribe(res=>{
-          if(res){
-            this.getRequestDetail()
-          }
-        },err => console.log( 'Err',err ))
+           if(res){
+             this.select(this.detailselect)
+           }
+         },err => console.log( 'Err',err ))
 
-      },err1 => console.log( err1 ) )
+       },err1 => console.log( err1 ) )
       
-    }
+     }
   }
 
   findComponent(evento){
@@ -217,12 +219,40 @@ export class RequestdetailComponent implements OnInit {
 
   select(d){
     this.detailselect=d;
-    // this.iddetail = d['code']
-    // this.detail = this.detailselect
-    // this.detail['component'] = d['name']
-    // this.extension = this.detailselect.extension
-    // this.onchangeSelectExtension(this.detailselect.extension)
-    // this.onchangeSelect(d['name'])
+    this._requestService.getHistoryComponentByRequest(d['component'], this.idrequest ).subscribe(history => {
+      if(history){
+        console.log('Historia')
+        console.log(history)
+        this.historydetailselect = history['body']
+      }
+    },err => {
+      console.log("ERROR: ", err )
+    })
+  }
+
+
+  selectHistory(history){
+    this.iddetail = history['code']
+    this.detail['component'] = this.detailselect['name']
+    this.detail['title'] = history['title']
+    this.detail['details']  = history['details']
+    this.extension = this.detailselect['extension']
+    this.onchangeSelectExtension(this.detailselect.extension)
+    this.onchangeSelect(this.detail['component'])
+    this.showform = true
+  }
+
+  deleteDetailComponent(d){
+    console.log(d)
+    if(confirm('¿Está seguro de eliminar el componente ' + d['name'] + '?')){
+      this._requestService.deleteRequestDetailByComponent(d['component'], this.idrequest ).subscribe(data => {
+
+        this.getRequestDetail()
+
+      },err => {
+        console.log(err)
+      })
+    }
   }
 
 }

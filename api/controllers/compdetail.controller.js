@@ -95,9 +95,39 @@ const delateDetail = ( request , response , nextFunction ) => {
 
 }
 
+const deleteDetailRequest = ( request , response , nextFunction ) => {
+    const component = request.params.component || null
+    const req = request.params.request || null
+
+    if( !component || !req ){
+        return response.status(400).json({
+            ok:false,
+            message:'Error. Es necesario el componente y el requerimiento'
+        })
+    }
+
+    console.log(component,req)
+    Compdetail.deleteDetailByRequest(component,req).then( resul => {
+        if(result){
+            return response.status(200).json({ok:true,message:'Se ha eliminado correctamente'})
+        }else{
+            return response.status(200).json({ok:true, message:'No se ha eliminado'})
+        }
+    })
+    .catch(err => {
+        return response.status(500).json({
+            ok:false,
+            message:'Ha ocurrido un error verificar',
+            error:err
+        })
+    })
+
+
+}
 
 module.exports = {
     addDetail,
     updateDetail,
-    delateDetail
+    delateDetail,
+    deleteDetailRequest
 }

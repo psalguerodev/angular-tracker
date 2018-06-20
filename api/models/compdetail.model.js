@@ -5,7 +5,8 @@ const sql_query = {
             values(?,?,?,?,?,?)`,
     UPDATE:`update component_details set title=? , details=? , request=? , component=? , user=? , updated=? 
             where code=?`,
-    DELETE:`delete from component_details where code=?`
+    DELETE:`delete from component_details where code=?`,
+    DELETEBYREQUEST:`delete from component_details where component=? and request=?`
 }
 
 const addDetail = (title,details,request,component,user) => {
@@ -80,10 +81,37 @@ const deleteDetail = (id) => {
     })
 }
 
+const deleteDetailByRequest = (component,request) => {
+    return new Promise((resolve,reject) => {
+        let db = database.connection()
+        if(db!=null){
+            db.run(sql_query.DELETEBYREQUEST,[component, request], function(err){
+                if(err){
+                    console.log('Err')
+                    console.log(err.message)
+                    reject(err)
+                }
+
+                db.close()
+
+                if(this.changes > 0 ){
+                    console.log('Procede')
+                    resolve(true)
+                }else{
+                    console.log('procede')
+                    resolve(false)
+                }
+
+            })
+        }
+    })
+}
+
 
 
 module.exports = {
     addDetail,
     updateDetail,
-    deleteDetail
+    deleteDetail,
+    deleteDetailByRequest
 }
