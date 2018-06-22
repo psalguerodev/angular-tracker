@@ -15,9 +15,8 @@ Proyecto para manipular los componentes modificados.
 # Proxy 
 
 ## NPM
-npm config set proxy http://S32643:ibk1234$$@130.30.4.249:80 -g
-npm config set https-proxy http://S32643:ibk1234$$@130.30.4.249:80
+- npm config set proxy http://S32643:ibk1234$$@130.30.4.249:80 -g
+- npm config set https-proxy http://S32643:ibk1234$$@130.30.4.249:80
 
 ## GIT
-git config --global http.proxy http://s12489:M11u40318@130.30.4.249:80
-git config --global https https://domain.com.sslVerify false
+- git config --global http.proxy http://s12489:M11u40318@130.30.4.249:80
